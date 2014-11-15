@@ -35,6 +35,31 @@ public:
 	{
 		return (fabs(result - expected) < delta);
 	}
+
+	/*
+	return float representing linear interpolation of given percentage between 2 given scalar values.
+	NOTE: expect given percent to be value between 0 and 1;
+	*/
+	static float LERP(float begin, float end, float percent)
+	{
+		return (begin + (end - begin) * percent);
+	}
+
+	/*
+	return true if given unsigned integer is a power of two else returns false
+	*/
+	static bool IsPowerOfTwo(const unsigned int num)
+	{
+		unsigned int n = num;
+		//shift bits to right (divide by two) until get a set bit that is not most significant or not
+		while (((n & 1) == 0) && n > 1) //while num is even and greater than 1;
+		{
+			n >>= 1; //shift bits to the right one space
+		}
+		//if found a bit set to 1 and it's not most significant (i.e. n > 1) then return false
+		//else return true;
+		return (n == 1);
+	}
 };
 
 class Vector2
