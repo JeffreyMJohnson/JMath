@@ -51,7 +51,7 @@ public:
 	static bool IsPowerOfTwo(const unsigned int num)
 	{
 		unsigned int n = num;
-		//shift bits to right (divide by two) until get a set bit that is not most significant or not
+		//shift bits to right (divide by two) until get a set bit that is most significant or not
 		while (((n & 1) == 0) && n > 1) //while num is even and greater than 1;
 		{
 			n >>= 1; //shift bits to the right one space
