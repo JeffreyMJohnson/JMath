@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\Jeff\Documents\GitHub\GoogleTest\msvc\gtest-md\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\Jeff\Documents\GitHub\GoogleTest\include;C:\Users\Jeff\Documents\GitHub\GoogleTest;C:\Users\Jeff\Documents\GitHub\JMath\JMath_library\JMath_static\include;C:\Users\Jeff\Documents\GitHub\JMath\JMath_library\Unit_test_JMath\include;$(ProjectDir)include\;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\jeffrey.johnson\Documents\GitHub\GoogleTest\msvc\gtest-md\Debug;C:\Users\Jeff\Documents\GitHub\GoogleTest\msvc\gtest-md\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\jeffrey.johnson\Documents\GitHub\GoogleTest\include;C:\Users\Jeff\Documents\GitHub\GoogleTest\include;C:\Users\jeffrey.johnson\Documents\GitHub\GoogleTest;C:\Users\Jeff\Documents\GitHub\GoogleTest;C:\Users\jeffrey.johnson\Documents\GitHub\JMath\JMath_library\JMath_static\include;C:\Users\Jeff\Documents\GitHub\JMath\JMath_library\JMath_static\include;C:\Users\jeffrey.johnson\Documents\GitHub\JMath\JMath_library\Unit_test_JMath\include;C:\Users\Jeff\Documents\GitHub\JMath\JMath_library\Unit_test_JMath\include;$(ProjectDir)include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -91,6 +91,7 @@
     <ClInclude Include="include\Test_Matrix3.h" />
     <ClInclude Include="include\Test_Vector2.h" />
     <ClInclude Include="include\Test_Vector3.h" />
+    <ClInclude Include="include\Test_Vector4.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -98,6 +99,7 @@
     <ClCompile Include="..\JMath_static\source\Matrix3.cpp" />
     <ClCompile Include="..\JMath_static\source\Vector2.cpp" />
     <ClCompile Include="..\JMath_static\source\Vector3.cpp" />
+    <ClCompile Include="..\JMath_static\source\Vector4.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Unit_test_JMath.cpp" />
   </ItemGroup>

@@ -14,7 +14,7 @@ header file defines public API for Google test, needs to be included for any tes
 #include "include\Test_Vector2.h"
 #include "include\Test_Vector3.h"
 #include "include\Test_Matrix3.h"
-
+#include "include\Test_Vector4.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {

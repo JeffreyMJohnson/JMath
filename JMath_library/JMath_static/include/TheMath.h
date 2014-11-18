@@ -218,6 +218,54 @@ public:
 
 };
 
+class Vector4
+{
+public:
+	Vector4();
+
+	Vector4(const float a_x, const float a_y, const float a_z, const float a_w);
+	
+	/*
+	construct and return Vector4 as a copy of given Vector4. Note given Vector4 is unchanged during operation.
+	*/
+	Vector4(const Vector4& other);
+
+	/*
+	construct and return a Vector4 from given hex number (e.g. color byte)
+	assume hex number is from 0x00000000 to 0xFFFFFFFF
+	*/
+	Vector4 ConstructFromHex(const unsigned int a_hex);
+
+	Vector4& operator= (const Vector4& rhs);
+
+	Vector4& operator+=(const Vector4& rhs);
+	Vector4 operator+(const Vector4& rhs);
+	
+	Vector4& operator-=(const Vector4& rhs);
+	Vector4 operator-(const Vector4& rhs);
+
+	bool operator==(const Vector4& rhs);
+	bool operator!=(const Vector4& rhs);
+
+	/*
+	returns the magnitude of this Vector4
+	*/
+	float Magnitude();
+
+	/*
+	return a new Vector4 of this Vectr4 normalized
+	*/
+	Vector4 GetNormalized();
+
+	/*
+	returns true if this Vector4 able to be normalized, and will normalize this object else returns false and leaves this unchanged (i.e. magnitude of this vector
+	is zero)
+	*/
+	bool Normalize();
+
+	float x, y, z, w;
+};
+
 /*
 Representation of a 3X3 matrix
 NOTE: All operations assume column major layout
