@@ -45,6 +45,16 @@ Matrix3::~Matrix3()
 {
 }
 
+float* Matrix3::operator[](int rhs)
+{
+	float t[]{
+		matrix[rhs][0],
+			matrix[rhs][1],
+			matrix[rhs][2]};
+
+	return matrix[rhs];
+}
+
 Matrix3 Matrix3::Identity()
 {
 	Matrix3 m;

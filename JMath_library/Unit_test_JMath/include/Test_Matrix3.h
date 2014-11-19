@@ -39,6 +39,20 @@ TEST(matrix3, constructor)
 
 }
 
+TEST(matrix3, copyConstructor)
+{
+	Matrix3 m(
+		1, 2, 3,
+		4, 5, 6,
+		7, 8, 9);
+
+	Matrix3 m2(m);
+
+	EXPECT_TRUE(m2 == m);
+	//verify copy not same object
+	EXPECT_FALSE(&m2 == &m) << "expect: " << &m2 << "result: " << &m;
+}
+
 TEST(matrix3, transpose)
 {
 	Matrix3 m(
@@ -50,7 +64,7 @@ TEST(matrix3, transpose)
 		5, 7, 7,
 		6, 8, 5);
 	m.Transpose();
-	EXPECT_TRUE(expected == m);
+	EXPECT_TRUE(expected == m) << m;
 
 	m = Matrix3(
 		6, 4, 8,
@@ -73,6 +87,28 @@ TEST(matrix3, transpose)
 	//EXPECT_FLOAT_EQ(5, m.matrix[2][2]);
 
 	EXPECT_TRUE(expected == m);
+}
+
+TEST(matrix3, bracketOperator)
+{
+	Matrix3 m(
+		1, 2, 3,
+		4, 5, 6,
+		7, 8, 9);
+	float v = *m[0];
+
+	EXPECT_TRUE(1 == v) << v;
+}
+
+TEST(matrix3, doubleBracketOverload)
+{
+	Matrix3 m(
+		1, 2, 3,
+		4, 5, 6,
+		7, 8, 9);
+	float r = m[1][1];
+
+	EXPECT_FLOAT_EQ(5, r);
 }
 
 TEST(matrix3, getTranspose)

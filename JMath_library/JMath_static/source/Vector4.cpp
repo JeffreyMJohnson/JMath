@@ -72,6 +72,26 @@ Vector4 Vector4::operator-()
 	return v;
 }
 
+/*
+returns ths value of element pointed by given index.
+i.e. myVector4[0] returns myVector.x, myVector[0] returns myVector.y etc.
+EXPECT: given value must be -1 < index < 4
+*/
+float Vector4::operator[](int index)
+{
+	switch (index)
+	{
+	case 0:
+		return x;
+	case 1:
+		return y;
+	case 2:
+		return z;
+	case 3:
+		return w;
+	}
+}
+
 /* 
 returns true if Vector not zero (Vector4 (0,0,0,0)) else returns false;
 */

@@ -155,6 +155,13 @@ TEST(vector4, multiplyAssignmentOperator)
 	EXPECT_FLOAT_EQ(10.0f, scalar) << "verify unchanged";
 }
 
+TEST(vector4, bracketOperator)
+{
+	Vector4 v(1, 2, 3, 4);
+	float r = v[2];
+
+	EXPECT_FLOAT_EQ(3, r);
+}
 
 TEST(vector4, magnitude)
 {

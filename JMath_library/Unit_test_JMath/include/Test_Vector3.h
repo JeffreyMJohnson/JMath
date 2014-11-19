@@ -192,6 +192,13 @@ TEST(vector3, multiplyAssignmentOperator)
 	EXPECT_FLOAT_EQ(10.0f, scalar) << "verify unchanged";
 }
 
+TEST(vector3, bracketOperator)
+{
+	Vector3 v(1, 2, 3);
+	float r = v[1];
+	EXPECT_FLOAT_EQ(2, r);
+}
+
 TEST(vector3, negativeUnary)
 {
 	Vector3 v(1, 2, 3);

@@ -181,6 +181,15 @@ public:
 	*/
 	bool operator!=(const Vector3& other);
 
+	/*
+	returns value of vector subelement at position of given int
+	i.e. myVector3[0] = will return x element, myVector[1] will return y and myVector[2] will return z
+	EXPECT given int to be greater than or equal to zero AND less than 3.
+	*/
+	float operator[](int rhs);
+
+
+
 	friend std::ostream& operator<<(std::ostream& out, const Vector3& v);
 
 	//vector math functions
@@ -250,6 +259,13 @@ public:
 	Vector4& operator-=(const Vector4& rhs);
 	Vector4 operator-(const Vector4& rhs);
 	Vector4 operator-();
+
+	/*
+	returns ths value of element pointed by given index. 
+	i.e. myVector4[0] returns myVector.x, myVector[0] returns myVector.y etc.
+	EXPECT: given value must be -1 < index < 4
+	*/
+	float operator[](int index);
 	
 	/*
 	returns true if Vector not zero (Vector4 (0,0,0,0)) else returns false;
@@ -323,16 +339,6 @@ public:
 	*/
 	static Matrix3 SetupTranslation(Vector2& translation);
 
-	/*this static function returns a Vector3 representing the given index (zero based) row or column of the given matrix parameter depending
-	on the given MATRIX_MAJOR enum type.
-	(e.g.
-	Matrix3 MyVector(
-	1, 2, 3,
-	4, 5, 6,
-	7, 8, 9);
-	Vector3::GetVector3(ROW, 1, MyMatrix); returns a Vector3 representing the second row of MyMatrix => (4, 5, 6)
-	Vector3::GetVector3(COL, 0, MyMatrix); returns a Vector3 representing the first column of MyMatrix => (1, 4, 7))
-	*/
 	static const Vector3 GetVector3(MATRIX_MAJOR type, int index, const Matrix3& matrix);
 
 	//transposes this matrix
@@ -357,6 +363,7 @@ public:
 	Matrix3& operator+=(const Matrix3& rhs);
 	Matrix3& operator-=(const Matrix3& rhs);
 	Matrix3& operator*=(const Matrix3& rhs);
+	float* operator[](int rhs);
 
 	const bool operator==(const Matrix3& rhs);
 	const bool operator!=(const Matrix3& rhs);

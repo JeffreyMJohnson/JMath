@@ -113,6 +113,24 @@ bool Vector3::operator!()
 }
 
 /*
+returns value of vector subelement at position of given int
+i.e. myVector3[0] = will return x element, myVector[1] will return y and myVector[2] will return z
+EXPECT given int to be greater than or equal to zero AND less than 3.
+*/
+float Vector3::operator[](int rhs)
+{
+	switch (rhs)
+	{
+	case 0:
+		return x;
+	case 1:
+		return y;
+	case 2:
+		return z;
+	}
+}
+
+/*
 returns false if given other Vector3 is either the same object as this or x and y are equal, else returns true
 */
 bool Vector3::operator!=(const Vector3& other)
