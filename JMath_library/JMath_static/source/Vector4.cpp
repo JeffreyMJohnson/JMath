@@ -33,6 +33,66 @@ Vector4& Vector4::operator=(const Vector4& rhs)
 	return *this;
 }
 
+Vector4& Vector4::operator+= (const Vector4& rhs)
+{
+	x += rhs.x;
+	y += rhs.y;
+	z += rhs.z;
+	w += rhs.w;
+	return *this;
+}
+
+Vector4 Vector4::operator+(const Vector4& rhs)
+{
+	Vector4 v = *this;
+	v += rhs;
+	return v;
+}
+
+Vector4& Vector4::operator-=(const Vector4& rhs)
+{
+	x -= rhs.x;
+	y -= rhs.y;
+	z -= rhs.z;
+	w -= rhs.w;
+	return *this;
+}
+
+Vector4 Vector4::operator-(const Vector4& rhs)
+{
+	Vector4 v = *this;
+	v -= rhs;
+	return v;
+}
+
+Vector4 Vector4::operator-()
+{
+	Vector4 v(*this);
+	v *= -1;
+	return v;
+}
+
+/* 
+returns true if Vector not zero (Vector4 (0,0,0,0)) else returns false;
+*/
+bool Vector4::operator!()
+{
+	return *this == Vector4();
+}
+
+Vector4 Vector4::operator*(const float scalar)
+{
+	return Vector4(x * scalar, y * scalar, z * scalar, w * scalar);
+}
+
+void Vector4::operator*=(const float scalar)
+{
+	x *= scalar;
+	y *= scalar;
+	z *= scalar;
+	w *= scalar;
+}
+
 bool Vector4::operator==(const Vector4& rhs)
 {
 	if (this == &rhs)
@@ -45,8 +105,7 @@ bool Vector4::operator==(const Vector4& rhs)
 		z == rhs.z &&
 		w == rhs.w)
 	{
-		return true;
-	}
+		return true;}
 	return false;
 }
 
@@ -54,3 +113,49 @@ bool Vector4::operator!=(const Vector4& rhs)
 {
 	return !(*this == rhs);
 }
+
+/*
+returns the magnitude of this Vector4
+*/
+float Vector4::Magnitude()
+{
+	return sqrt((x * x) + (y * y) + (z * z) + (w * w));
+}
+
+/*
+returns true if this Vector4 able to be normalized, and will normalize this object else returns false and leaves this unchanged (i.e. magnitude of this vector
+is zero)
+*/
+bool Vector4::Normalize()
+{
+	float magnitude = Magnitude();
+	//divide by zero check
+	if (magnitude)
+	{
+		//multiply by inverse, performance refactor
+		*this *= 1 / magnitude;
+		return true;
+	}
+	return false;
+}
+
+/*
+return a new Vector4 of this Vectr4 normalized
+*/
+Vector4 Vector4::GetNormalized()
+{
+	Vector4 v = *this;
+	v.Normalize();
+	return v;
+}
+
+std::ostream& operator<<(std::ostream& out, const Vector4& rhs)
+{
+	out << "Vector4 [x:";
+	out << rhs.x << ", y:";
+	out << rhs.y << ", z:";
+	out << rhs.z << ", w:";
+	out << rhs.w << "]";
+	return out;
+}
+

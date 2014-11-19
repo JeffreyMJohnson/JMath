@@ -35,6 +35,12 @@ Matrix3::Matrix3(
 	matrix[2][2] = m22;
 }
 
+Matrix3::Matrix3(Matrix3& rhs)
+{
+	*this = rhs;
+}
+
+
 Matrix3::~Matrix3()
 {
 }

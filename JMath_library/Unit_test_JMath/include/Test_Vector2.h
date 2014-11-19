@@ -190,7 +190,7 @@ TEST(vector2, getNormal)
 
 	//divide by zero check
 	v = Vector2();
-	v2 = v.GetNormal() = Vector2();
+	v2 = v.GetNormal() = Vector2(); 
 	EXPECT_TRUE(Vector2() == v2) << v2;
 }
 

@@ -192,6 +192,23 @@ TEST(vector3, multiplyAssignmentOperator)
 	EXPECT_FLOAT_EQ(10.0f, scalar) << "verify unchanged";
 }
 
+TEST(vector3, negativeUnary)
+{
+	Vector3 v(1, 2, 3);
+
+	EXPECT_TRUE(Vector3(-1, -2, -3) == -v) << v;
+	EXPECT_TRUE(Vector3(1, 2, 3) == v) << v;
+}
+
+TEST(vector3, bangOperator)
+{
+	Vector3 v(1, 2, 3);
+	Vector3 v2;
+
+	EXPECT_FALSE(!v) << v;
+	EXPECT_TRUE(!v2) << v;
+}
+
 TEST(vector3, magnitude)
 {
 	Vector3 v1(3, 4, 5);

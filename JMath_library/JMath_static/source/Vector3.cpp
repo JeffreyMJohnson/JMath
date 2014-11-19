@@ -97,6 +97,21 @@ bool Vector3::operator==(const Vector3& other)
 	return false;
 }
 
+Vector3 Vector3::operator-()
+{
+	Vector3 v(*this);
+	v *= -1;
+	return v;
+}
+
+/*
+returns true if Vector not zero (Vector3 (0,0,0,0)) else returns false;
+*/
+bool Vector3::operator!()
+{
+	return *this == Vector3();
+}
+
 /*
 returns false if given other Vector3 is either the same object as this or x and y are equal, else returns true
 */

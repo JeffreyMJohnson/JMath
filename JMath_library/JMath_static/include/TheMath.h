@@ -165,6 +165,12 @@ public:
 	Vector3 operator*(const float scalar);
 	void operator*=(const float scalar);
 
+	Vector3 operator-();
+
+	/*
+	returns true if Vector not zero (Vector4 (0,0,0,0)) else returns false;
+	*/
+	bool operator!();
 	/*
 	returns true if given other Vector3 is either the same object as this or x and y are equal, else returns false
 	*/
@@ -243,6 +249,15 @@ public:
 	
 	Vector4& operator-=(const Vector4& rhs);
 	Vector4 operator-(const Vector4& rhs);
+	Vector4 operator-();
+	
+	/*
+	returns true if Vector not zero (Vector4 (0,0,0,0)) else returns false;
+	*/
+	bool operator!();
+
+	Vector4 operator*(const float scalar);
+	void operator*=(const float scalar);
 
 	bool operator==(const Vector4& rhs);
 	bool operator!=(const Vector4& rhs);
@@ -262,6 +277,8 @@ public:
 	is zero)
 	*/
 	bool Normalize();
+
+	friend std::ostream& operator<<(std::ostream& out, const Vector4& rhs);
 
 	float x, y, z, w;
 };
@@ -285,6 +302,7 @@ public:
 		const float m20,
 		const float m21,
 		const float m22);
+	Matrix3(Matrix3& rhs);
 	~Matrix3();
 
 	//builds and returns a new identity matrix 
