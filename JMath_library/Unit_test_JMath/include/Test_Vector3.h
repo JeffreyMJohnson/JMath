@@ -67,6 +67,9 @@ TEST(vector3, equalityOperator)
 	Vector3 v2(3, 2, 1);
 	Vector3 v3(1, 2, 3);
 
+	EXPECT_EQ(v1, v3);
+	EXPECT_NE(v1, v2);
+	EXPECT_EQ(v1, v1);
 	EXPECT_TRUE(v1 == v1);
 	EXPECT_TRUE(v1 == v3);
 	EXPECT_FALSE(v1 == v2);

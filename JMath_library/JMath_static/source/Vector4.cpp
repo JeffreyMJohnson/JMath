@@ -77,7 +77,7 @@ returns ths value of element pointed by given index.
 i.e. myVector4[0] returns myVector.x, myVector[0] returns myVector.y etc.
 EXPECT: given value must be -1 < index < 4
 */
-float Vector4::operator[](int index)
+float Vector4::operator[](const int index)
 {
 	switch (index)
 	{
@@ -129,9 +129,27 @@ bool Vector4::operator==(const Vector4& rhs)
 	return false;
 }
 
+bool operator==(const Vector4& lhs, const Vector4& rhs)
+{
+	if (&lhs == &rhs)
+		return true;
+	if (lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w)
+		return true;
+	return false;
+}
+
 bool Vector4::operator!=(const Vector4& rhs)
 {
 	return !(*this == rhs);
+}
+
+bool operator!=(const Vector4& lhs, const Vector4& rhs)
+{
+	if (&lhs == &rhs)
+		return false;
+	if (lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w)
+		return false;
+	return true;
 }
 
 /*

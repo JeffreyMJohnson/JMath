@@ -100,15 +100,17 @@ TEST(matrix3, bracketOperator)
 	EXPECT_TRUE(1 == v) << v;
 }
 
-TEST(matrix3, doubleBracketOverload)
+TEST(matrix3, doubleBracketOperator)
 {
 	Matrix3 m(
 		1, 2, 3,
 		4, 5, 6,
 		7, 8, 9);
-	float r = m[1][1];
+	
+	EXPECT_FLOAT_EQ(5, m[1][1]);
+	EXPECT_FLOAT_EQ(3, m[0][2]);
 
-	EXPECT_FLOAT_EQ(5, r);
+	EXPECT_FLOAT_EQ(9, m[2][2]);
 }
 
 TEST(matrix3, getTranspose)

@@ -15,6 +15,12 @@ Vector2::Vector2(float a_x, float a_y)
 	y = a_y;
 }
 
+Vector2::Vector2(Vector2& other)
+{
+	x = other.x;
+	y = other.y;
+}
+
 Vector2::~Vector2()
 {
 }
@@ -51,6 +57,13 @@ Vector2& Vector2::operator+=(const Vector2& rhs)
 Vector2 Vector2::operator-(const Vector2& other)
 {
 	return Vector2(x - other.x, y - other.y);
+}
+
+Vector2 Vector2::operator-()
+{
+	Vector2 v(*this);
+	v *= -1;
+	return v;
 }
 
 Vector2 operator-(const Vector2& lhs, const Vector2& rhs)
@@ -94,11 +107,32 @@ bool Vector2::operator==(const Vector2& other)
 }
 
 /*
+returns true if given other Vector2 is either the same object as this or x and y are equal, else returns false
+*/
+bool operator==(const Vector2& lhs, const Vector2& rhs)
+{
+	if (&lhs == &rhs)
+		return true;
+if (lhs.x == rhs.x && lhs.y == rhs.y)
+		return true;
+	return false;
+}
+
+/*
 returns false if given other Vector2 is either the same object as this or x and y are equal, else returns true
 */
 bool Vector2::operator!=(const Vector2& other)
 {
 	return !(*this == other);
+}
+
+bool operator!=(const Vector2& lhs, const Vector2& rhs)
+{
+	if (&lhs == &rhs)
+		return false;
+	if (lhs.x == rhs.x && lhs.y == rhs.y)
+		return false;
+	return true;
 }
 
 std::ostream& operator<<(std::ostream& out, const Vector2& v)

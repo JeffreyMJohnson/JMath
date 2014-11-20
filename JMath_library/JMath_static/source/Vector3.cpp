@@ -97,6 +97,15 @@ bool Vector3::operator==(const Vector3& other)
 	return false;
 }
 
+bool operator==(const Vector3& lhs, const Vector3& rhs)
+{
+	if (&lhs == &rhs)
+		return true;
+	if (lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z)
+		return true;
+	return false;
+}
+
 Vector3 Vector3::operator-()
 {
 	Vector3 v(*this);
@@ -110,6 +119,15 @@ returns true if Vector not zero (Vector3 (0,0,0,0)) else returns false;
 bool Vector3::operator!()
 {
 	return *this == Vector3();
+}
+
+bool operator!=(const Vector3& lhs, const Vector3& rhs)
+{
+	if (&lhs == &rhs)
+		return false;
+	if (lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z)
+		return false;
+	return true;
 }
 
 /*

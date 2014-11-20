@@ -60,6 +60,10 @@ TEST(vector4, equality)
 	EXPECT_TRUE(v1 == v1);
 	EXPECT_TRUE(v1 == v2);
 	EXPECT_FALSE(v1 == v3);
+
+	EXPECT_EQ(v1, v1);
+	EXPECT_EQ(v1, v2);
+	EXPECT_NE(v1, v3);
 }
 
 TEST(vector4, inEquality)

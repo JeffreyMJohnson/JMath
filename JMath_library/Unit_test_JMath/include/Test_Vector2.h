@@ -33,6 +33,10 @@ TEST(vector2, equalityOperator)
 	EXPECT_TRUE(v1 == v3);
 	EXPECT_FALSE(v1 == v2);
 
+	EXPECT_EQ(v1, v1);
+	EXPECT_EQ(v1, v3);
+	EXPECT_NE(v1, v2);
+
 }
 
 TEST(vector2, inEqualityOperator)
@@ -134,9 +138,16 @@ TEST(vector2, subtractAssignmentOperator)
 	EXPECT_TRUE(Vector2() == v2) << v2;
 }
 
+TEST(vector2, negativeUnaryOperator)
+{
+	Vector2 v(1, 2);
+	EXPECT_EQ(Vector2(1, 2), v);
+	EXPECT_EQ(Vector2(-1, -2), -v);
+
+}
+
 TEST(vector2, multiplyOperator)
 {
-
 	Vector2 v1(10, 10);
 
 	float scalar = 5.0f;

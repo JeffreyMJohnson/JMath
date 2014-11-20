@@ -4,7 +4,7 @@
 #define _THE_MATH_H_
 
 #include <math.h>
-#include <iostream>
+#include <ostream>
 
 #define PI 3.14159
 
@@ -67,6 +67,7 @@ class Vector2
 public:
 	Vector2();
 	Vector2(float a_x, float a_y);
+	Vector2(Vector2& other);
 
 	~Vector2();
 
@@ -81,6 +82,8 @@ public:
 	Vector2 operator-(const Vector2& other);
 	Vector2& operator-=(const Vector2& other);
 
+	Vector2 operator-();
+
 	Vector2 operator*(const float scalar);
 	void operator*=(const float scalar);
 
@@ -89,10 +92,14 @@ public:
 	*/
 	bool operator==(const Vector2& other);
 
+	friend bool operator==(const Vector2& lhs, const Vector2& rhs);
+
 	/*
 	returns false if given other Vector2 is either the same object as this or x and y are equal, else returns true
 	*/
 	bool operator!=(const Vector2& other);
+
+	friend bool operator!=(const Vector2& lhs, const Vector2& rhs);
 
 	friend std::ostream& operator<<(std::ostream& out, const Vector2& v);
 
@@ -176,10 +183,14 @@ public:
 	*/
 	bool operator==(const Vector3& other);
 
+	friend bool operator==(const Vector3& lhs, const Vector3& rhs);
+
 	/*
 	returns false if given other Vector3 is either the same object as this or x and y are equal, else returns true
 	*/
 	bool operator!=(const Vector3& other);
+	
+	friend bool operator!=(const Vector3& lhs, const Vector3& rhs);
 
 	/*
 	returns value of vector subelement at position of given int
@@ -187,9 +198,7 @@ public:
 	EXPECT given int to be greater than or equal to zero AND less than 3.
 	*/
 	float operator[](int rhs);
-
-
-
+	
 	friend std::ostream& operator<<(std::ostream& out, const Vector3& v);
 
 	//vector math functions
@@ -265,7 +274,7 @@ public:
 	i.e. myVector4[0] returns myVector.x, myVector[0] returns myVector.y etc.
 	EXPECT: given value must be -1 < index < 4
 	*/
-	float operator[](int index);
+	float operator[](const int index);
 	
 	/*
 	returns true if Vector not zero (Vector4 (0,0,0,0)) else returns false;
@@ -276,7 +285,9 @@ public:
 	void operator*=(const float scalar);
 
 	bool operator==(const Vector4& rhs);
+	friend bool operator==(const Vector4& lhs, const Vector4& rhs);
 	bool operator!=(const Vector4& rhs);
+	friend bool operator!=(const Vector4& lhs, const Vector4& rhs);
 
 	/*
 	returns the magnitude of this Vector4
