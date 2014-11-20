@@ -1,6 +1,3 @@
-#ifndef _VECTOR_3_H_
-#define _VECTOR_3_H_
-
 #include "TheMath.h"
 
 Vector3::Vector3()
@@ -236,5 +233,3 @@ Vector3 Vector3::LERP(const Vector3& start, const Vector3& end, float percent)
 {
 	return (start + (end - start) * percent);
 }
-
-#endif

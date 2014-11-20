@@ -1,6 +1,3 @@
-#ifndef _VECTOR_2_H_
-#define _VECTOR_2_H_
-
 #include "TheMath.h"
 
 Vector2::Vector2()
@@ -208,5 +205,3 @@ Vector2 Vector2::LERP(const Vector2& start, const Vector2& end, float percent)
 {
 	return (start + (end - start) * percent);
 }
-
-#endif

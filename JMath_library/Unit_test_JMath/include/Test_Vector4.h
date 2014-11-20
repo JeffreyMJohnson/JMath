@@ -27,6 +27,36 @@ TEST(vector4, constructorFloats)
 	EXPECT_FLOAT_EQ(-3.14159f, v.w);
 }
 
+TEST(vector4, constructorHex)
+{
+	Vector4 v1(0x00000000);
+	Vector4 v2(0xFFFFFFFF);
+	Vector4 red(0xFF0000FF);
+	Vector4 green(0x00FF00FF);
+	Vector4 blue(0x0000FF7F);
+
+	EXPECT_EQ(Vector4(), v1);
+	EXPECT_EQ(Vector4(255, 255, 255, 255), v2);
+	EXPECT_EQ(Vector4(255, 0, 0, 255), red);
+	EXPECT_EQ(Vector4(0, 255, 0, 255), green);
+	EXPECT_EQ(Vector4(0, 0, 255, 127), blue);
+}
+
+TEST(vector4, constructorHexStatic)
+{
+	Vector4 v1 = Vector4::ConstructFromHex(0x00000000);
+	Vector4 v2 = Vector4::ConstructFromHex(0xFFFFFFFF);
+	Vector4 red = Vector4::ConstructFromHex(0xFF0000FF);
+	Vector4 green = Vector4::ConstructFromHex(0x00FF00FF);
+	Vector4 blue = Vector4::ConstructFromHex(0x0000FF7F);
+
+	EXPECT_EQ(Vector4(), v1);
+	EXPECT_EQ(Vector4(255, 255, 255, 255), v2);
+	EXPECT_EQ(Vector4(255, 0, 0, 255), red);
+	EXPECT_EQ(Vector4(0, 255, 0, 255), green);
+	EXPECT_EQ(Vector4(0, 0, 255, 127), blue);
+}
+
 TEST(vector4, constructorCopy)
 {
 	Vector4 v(1, 2, 3, 4);

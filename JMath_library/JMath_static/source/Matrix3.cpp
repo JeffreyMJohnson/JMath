@@ -1,5 +1,3 @@
-#ifndef _MATRIX_3_H
-#define _MATRIX_3_H
 #include "TheMath.h"
 
 Matrix3::Matrix3()
@@ -278,5 +276,3 @@ std::ostream& operator<<(std::ostream& out, const Matrix3& m)
 	out << "******************\n";
 	return out;
 }
-
-#endif

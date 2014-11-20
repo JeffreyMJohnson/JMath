@@ -250,15 +250,23 @@ public:
 	Vector4(const float a_x, const float a_y, const float a_z, const float a_w);
 	
 	/*
+	construct and return a Vector4 from given hex number with values x for the red value, y for the
+	green value, z for the blue value and W for the alpha value.  The values will be from 0 to 255.
+	assume hex number is from 0x00000000 to 0xFFFFFFFF
+	*/
+	Vector4(const unsigned int a_hex);
+
+	/*
 	construct and return Vector4 as a copy of given Vector4. Note given Vector4 is unchanged during operation.
 	*/
 	Vector4(const Vector4& other);
 
 	/*
-	construct and return a Vector4 from given hex number (e.g. color byte)
+	construct and return a Vector4 from given hex number with values x for the red value, y for the
+	green value, z for the blue value and W for the alpha value.  The values will be from 0 to 255.
 	assume hex number is from 0x00000000 to 0xFFFFFFFF
 	*/
-	Vector4 ConstructFromHex(const unsigned int a_hex);
+	static Vector4 ConstructFromHex(const unsigned int a_hex);
 
 	Vector4& operator= (const Vector4& rhs);
 
