@@ -301,6 +301,10 @@ TEST(vector3, getLERP)
 	percent = .5;
 	result = start.GetLERP(end, percent);
 	EXPECT_TRUE(Vector3(2.5, 2.5, 2.5) == result);
+
+	EXPECT_EQ(Vector3(), start);
+
+	EXPECT_NE(&start, &result);
 }
 
 TEST(vector3, lerp_static)
@@ -317,5 +321,7 @@ TEST(vector3, lerp_static)
 	percent = .5;
 	result = Vector3::LERP(start, end, percent);
 	EXPECT_TRUE(Vector3(2.5, 2.5, 2.5) == result);
+
+	EXPECT_NE(&start, &result);
 }
 #endif
