@@ -57,4 +57,13 @@ TEST(jmath, isPowOfTwo)
 	EXPECT_FALSE(JMath::IsPowerOfTwo(i));
 }
 
+TEST(jmath, getNextPowOfTwo)
+{
+	EXPECT_EQ(0, JMath::GetNextPowerOfTwo(0));
+	EXPECT_EQ(2, JMath::GetNextPowerOfTwo(2));
+	EXPECT_EQ(8, JMath::GetNextPowerOfTwo(6));
+	EXPECT_EQ(16, JMath::GetNextPowerOfTwo(9));
+	EXPECT_EQ(1073741824, JMath::GetNextPowerOfTwo(1073741823));
+}
+
 #endif

@@ -60,6 +60,30 @@ public:
 		//else return true;
 		return (n == 1);
 	}
+
+	/*
+	Return the next highest power of 2 of the given 32-bit value if the value is not a power of 2.  Otherwise, will return the value.
+	*/
+	static unsigned int GetNextPowerOfTwo(const unsigned int value)
+	{
+		unsigned int v = value;
+		//check edge case of 0
+		if (value == 0)
+			return 0;
+		/*copy the most significant bit to all lower bits, then add 1 which results in carry that
+		sets all lower bits to 0 and one bit beyond to 1.  If the original number was a power of 2
+		then the decrement will reduce it by one less, so then round up to original value.
+		*/
+		v--;
+		v |= v >> 1;
+		v |= v >> 2;
+		v |= v >> 4;
+		v |= v >> 8;
+		v |= v >> 16;
+		v++;
+
+		return v;
+	}
 };
 
 class Vector2
