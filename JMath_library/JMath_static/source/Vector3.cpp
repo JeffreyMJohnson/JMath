@@ -14,6 +14,13 @@ Vector3::Vector3(float a_x, float a_y, float a_z)
 	z = a_z;
 }
 
+Vector3::Vector3(const Vector3& other)
+{
+	x = other.x;
+	y = other.y;
+	z = other.z;
+}
+
 Vector3::~Vector3()
 {
 }
@@ -222,7 +229,7 @@ Vector3 Vector3::GetLERP(const Vector3& end, float const percent)
 	Vector3 start = *this;
 	Vector3 norm = end - start;
 
-	return (*this + (end - *this) * percent);
+	return (start + (end - start) * percent);
 }
 
 /*

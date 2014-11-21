@@ -22,6 +22,15 @@ TEST(vector2, constructor)
 	EXPECT_FLOAT_EQ(2, v.y);
 }
 
+TEST(vector2, copyConstructor)
+{
+	Vector2 v(1, 2);
+	Vector2 v2(v);
+	EXPECT_EQ(v, v2);
+	EXPECT_EQ(v, v);
+
+}
+
 //test equality operator so can use to verify future tests
 TEST(vector2, equalityOperator)
 {
@@ -144,6 +153,15 @@ TEST(vector2, negativeUnaryOperator)
 	EXPECT_EQ(Vector2(1, 2), v);
 	EXPECT_EQ(Vector2(-1, -2), -v);
 
+}
+
+TEST(vector2, bangOperator)
+{
+	Vector2 v(1, 2);
+	Vector2 v2;
+
+	EXPECT_FALSE(!v) << v;
+	EXPECT_TRUE(!v2) << v;
 }
 
 TEST(vector2, multiplyOperator)

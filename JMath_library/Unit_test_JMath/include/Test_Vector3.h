@@ -24,6 +24,15 @@ TEST(vector3, constructor)
 	EXPECT_FLOAT_EQ(3, v.z);
 }
 
+TEST(vector3, copyConstructor)
+{
+	Vector3 v(1, 2, 3);
+	Vector3 v2(v);
+	EXPECT_EQ(v, v2);
+	EXPECT_EQ(v, v);
+
+}
+
 TEST(vector3, getVector3FromMatrix)
 {
 	Matrix3 mRow(
@@ -295,9 +304,11 @@ TEST(vector3, getLERP)
 	Vector3 result = start.GetLERP(end, percent);
 
 	EXPECT_TRUE(start == result);
+	EXPECT_NE(&start, &result);
 	percent = 1;
 	result = start.GetLERP(end, percent);
 	EXPECT_TRUE(end == result);
+	EXPECT_NE(&start, &result);
 	percent = .5;
 	result = start.GetLERP(end, percent);
 	EXPECT_TRUE(Vector3(2.5, 2.5, 2.5) == result);

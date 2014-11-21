@@ -12,7 +12,7 @@ Vector2::Vector2(float a_x, float a_y)
 	y = a_y;
 }
 
-Vector2::Vector2(Vector2& other)
+Vector2::Vector2(const Vector2& other)
 {
 	x = other.x;
 	y = other.y;
@@ -61,6 +61,14 @@ Vector2 Vector2::operator-()
 	Vector2 v(*this);
 	v *= -1;
 	return v;
+}
+
+/*
+returns true if Vector not zero (Vector2 (0,0)) else returns false;
+*/
+bool Vector2::operator!()
+{
+	return *this == Vector2();
 }
 
 Vector2 operator-(const Vector2& lhs, const Vector2& rhs)
@@ -131,6 +139,8 @@ bool operator!=(const Vector2& lhs, const Vector2& rhs)
 		return false;
 	return true;
 }
+
+
 
 std::ostream& operator<<(std::ostream& out, const Vector2& v)
 {

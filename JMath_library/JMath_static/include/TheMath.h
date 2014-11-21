@@ -91,7 +91,7 @@ class Vector2
 public:
 	Vector2();
 	Vector2(float a_x, float a_y);
-	Vector2(Vector2& other);
+	Vector2(const Vector2& other);
 
 	~Vector2();
 
@@ -107,6 +107,11 @@ public:
 	Vector2& operator-=(const Vector2& other);
 
 	Vector2 operator-();
+
+	/*
+	returns true if Vector not zero (Vector2 (0,0)) else returns false;
+	*/
+	bool operator!();
 
 	Vector2 operator*(const float scalar);
 	void operator*=(const float scalar);
@@ -179,7 +184,7 @@ class Vector3
 public:
 	Vector3();
 	Vector3(float a_x, float a_y, float a_z);
-
+	Vector3(const Vector3& other);
 	~Vector3();
 
 	float x, y, z;
@@ -199,7 +204,7 @@ public:
 	Vector3 operator-();
 
 	/*
-	returns true if Vector not zero (Vector4 (0,0,0,0)) else returns false;
+	returns true if Vector not zero (Vector3 (0,0,0)) else returns false;
 	*/
 	bool operator!();
 	/*

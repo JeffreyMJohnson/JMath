@@ -78,6 +78,7 @@ TEST(vector4, assignment)
 
 	v = v2 = v2;
 	EXPECT_TRUE(v == v2);
+	EXPECT_NE(&v, &v2);
 	EXPECT_TRUE(v2 == Vector4(4, 3, 2, 1));
 }
 
@@ -126,12 +127,19 @@ TEST(vector4, additionAssignment)
 
 TEST(vector4, addition)
 {
-	Vector4 v1(1, 2, 3, 4);
-	Vector4 v2(5, 4, 3, 2);
-	v1 += v2;
+	Vector4 v1(10, 10, 10, 10);
+	Vector4 v2(5, 5, 5, 5);
+	Vector4 v3 = v1 + v2;
 
-	EXPECT_TRUE(Vector4(6, 6, 6, 6) == v1);
-	EXPECT_TRUE(Vector4(5, 4, 3, 2) == v2);
+	EXPECT_TRUE(v1 == Vector4(10, 10, 10, 10)) << "verify unchanged";
+	EXPECT_TRUE(v2 == Vector4(5, 5, 5, 5)) << "verify unchanged";
+	EXPECT_TRUE(v3 == Vector4(15, 15, 15, 15)) << "verify addition returned";
+
+	//verify chaining
+	v3 = v1 + v2 + v3;
+	EXPECT_TRUE(v3 == Vector4(30, 30, 30, 30));
+	EXPECT_TRUE(v1 == Vector4(10, 10, 10, 10)) << "verify unchanged";
+	EXPECT_TRUE(v2 == Vector4(5, 5, 5, 5)) << "verify unchanged";
 }
 
 TEST(vector4, subtractAssignment)
@@ -140,15 +148,34 @@ TEST(vector4, subtractAssignment)
 	Vector4 v2(5, 5, 5, 5);
 	v1 -= v2;
 
-	EXPECT_TRUE(Vector4(5,5,5,5) == v1);
-	EXPECT_TRUE(Vector4(5, 5,5,5) == v2);
+	EXPECT_TRUE(Vector4(5, 5, 5, 5) == v1);
+	EXPECT_TRUE(Vector4(5, 5, 5, 5) == v2);
 
 	//verify chaining
-	v1 = Vector4(10,10,10,10);
+	v1 = Vector4(10, 10, 10, 10);
 	v1 -= v2 -= v2;
 
-	EXPECT_TRUE(Vector4(10,10,10,10) == v1) << v1;
-	EXPECT_TRUE(Vector4(0,0,0,0) == v2) << v2;
+	EXPECT_TRUE(Vector4(10, 10, 10, 10) == v1) << v1;
+	EXPECT_TRUE(Vector4(0, 0, 0, 0) == v2) << v2;
+}
+
+TEST(vector4, subtractOperator)
+{
+
+	Vector4 v1(10, 10, 10, 10);
+	Vector4 v2(5, 5, 5, 5);
+	Vector4 v3 = v1 - v2;
+
+	EXPECT_TRUE(v1 == Vector4(10, 10, 10, 10)) << v1 << "verify unchanged";
+	EXPECT_TRUE(v2 == Vector4(5, 5, 5, 5)) << v2 << "verify unchanged";
+	EXPECT_TRUE(v3 == Vector4(5, 5, 5, 5)) << v3 << "verify subtract returned";
+
+	//chaining 
+	v3 = v1 - v2 - v2;
+	EXPECT_TRUE(v1 == Vector4(10, 10, 10, 10)) << v1 << "verify unchanged";
+	EXPECT_TRUE(v2 == Vector4(5, 5, 5, 5)) << v2 << "verify unchanged";
+	EXPECT_TRUE(v3 == Vector4(0, 0, 0, 0)) << v3 << "verify subtract returned";
+
 }
 
 TEST(vector4, negativeUnary)
@@ -203,7 +230,7 @@ TEST(vector4, magnitude)
 	//check zero
 
 	EXPECT_FLOAT_EQ(0, v1.Magnitude());
-	
+
 	v1 = Vector4(1, 5, 8, 9);
 	EXPECT_FLOAT_EQ(13.076696830622020656710945951579, v1.Magnitude()) << v1;
 	EXPECT_TRUE(v1 == Vector4(1, 5, 8, 9));
