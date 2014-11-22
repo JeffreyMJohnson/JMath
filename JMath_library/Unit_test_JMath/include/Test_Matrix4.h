@@ -224,20 +224,21 @@ TEST(matrix4, getVector4FromMatrix)
 TEST(matrix4, productAssignemntOperator)
 {
 	Matrix4 m1(
-		0, 1, 2, 3,
-		4, 5, 6, 7,
-		8, 9, 10, 11,
-		12, 13, 14, 15);
+		0, 1, 2, 0,
+		4, 5, 6, 0,
+		8, 9, 10, 0,
+		0, 0, 0, 1);
 	Matrix4 m2(
-		0, 1, 2, 3,
-		4, 5, 6, 7,
-		8, 9, 10, 11,
-		12, 13, 14, 15);
+		0, 1, 2, 0,
+		4, 5, 6, 0,
+		8, 9, 10, 0,
+		0, 0, 0, 1);
 	m1 *= m2;
 	Matrix4 expect(
-		15, 18, 21,
-		42, 54, 66,
-		69, 90, 111);
+		20, 23, 26, 0,
+		68, 83, 98, 0,
+		116, 143, 170, 0,
+		0, 0, 0, 1);
 
 	//EXPECT_FLOAT_EQ(15, m1.matrix[0][0]);
 	//EXPECT_FLOAT_EQ(18, m1.matrix[0][1]);
@@ -249,25 +250,37 @@ TEST(matrix4, productAssignemntOperator)
 	//EXPECT_FLOAT_EQ(90, m1.matrix[2][1]);
 	//EXPECT_FLOAT_EQ(111, m1.matrix[2][2]);
 
-	EXPECT_TRUE(expect == m1);
-	EXPECT_TRUE(m2 == Matrix4(
-		0, 1, 2,
-		3, 4, 5,
-		6, 7, 8));
+	EXPECT_EQ(expect, m1);
+	EXPECT_EQ(Matrix4(
+		0, 1, 2, 0,
+		4, 5, 6, 0,
+		8, 9, 10, 0,
+		0, 0, 0, 1), m2);
 
 	m1 = Matrix4(
-		9, 6, 3,
-		8, 5, 2,
-		7, 4, 1);
+		320, -8, 58, 0,
+		45, 26, -369, 0,
+		65, 14, -65, 0,
+		0, 0, 0, 1);
+
 	m2 = Matrix4(
-		1, 2, 3,
-		4, 5, 6,
-		7, 8, 9);
+		12, -25, -98, 0,
+		45, 369, 7, 0,
+		98, -5, 180, 0,
+		0, 0, 0, 1);
 	m1 *= m2;
 	expect = Matrix4(
-		54, 72, 90,
-		42, 57, 72,
-		30, 42, 54);
+		9164, -11242, -20976, 0,
+		-34452, 10314, -70648, 0,
+		-4960, 3866, -17972, 0,
+		0, 0, 0, 1);
+
+	EXPECT_EQ(expect, m1);
+	EXPECT_EQ(Matrix4(
+		12, -25, -98, 0,
+		45, 369, 7, 0,
+		98, -5, 180, 0,
+		0, 0, 0, 1), m2);
 
 	//EXPECT_FLOAT_EQ(54, m1.matrix[0][0]);
 	//EXPECT_FLOAT_EQ(72, m1.matrix[0][1]);
@@ -278,12 +291,6 @@ TEST(matrix4, productAssignemntOperator)
 	//EXPECT_FLOAT_EQ(30, m1.matrix[2][0]);
 	//EXPECT_FLOAT_EQ(42, m1.matrix[2][1]);
 	//EXPECT_FLOAT_EQ(54, m1.matrix[2][2]);
-
-	EXPECT_TRUE(expect == m1);
-	EXPECT_TRUE(m2 == Matrix4(
-		1, 2, 3,
-		4, 5, 6,
-		7, 8, 9));
 
 	//verify multiply identity equals same matrix
 	//EXPECT_TRUE(m2 == (m2 *= Matrix4::Identity()));

@@ -131,6 +131,22 @@ bool Matrix4::operator==(const Matrix4& rhs)
 	return true;
 }
 
+bool operator==(const Matrix4& lhs, const Matrix4& rhs)
+{
+	if (&lhs == &rhs)
+		return true;
+
+	for (int row = 0; row < 4; row++)
+	{
+		for (int col = 0; col < 4; col++)
+		{
+			if (lhs.matrix[row][col] != rhs.matrix[row][col])
+				return false;
+		}
+	}
+	return true;
+}
+
 bool Matrix4::operator!=(const Matrix4& rhs)
 {
 	return !(*this == rhs);
@@ -175,9 +191,9 @@ Matrix4& Matrix4::operator*=(const Matrix4& rhs)
 {
 	//need to use a temp because use the object during the process and can't modify during.
 	Matrix4 result;
-	for (int row = 0; row < 3; row++)
+	for (int row = 0; row < 4; row++)
 	{
-		for (int col = 0; col < 3; col++)
+		for (int col = 0; col < 4; col++)
 		{
 			Vector4 rowVector = Matrix4::GetVector4(ROW, row, *this);
 			Vector4 colVector = Matrix4::GetVector4(COL, col, rhs);

@@ -565,6 +565,7 @@ public:
 	/*float* operator[](int rhs);*/
 
 	bool operator==(const Matrix4& rhs);
+	friend bool operator==(const Matrix4& lhs, const Matrix4& rhs);
 	bool operator!=(const Matrix4& rhs);
 
 	friend std::ostream& operator<<(std::ostream& out, const Matrix4& m);
