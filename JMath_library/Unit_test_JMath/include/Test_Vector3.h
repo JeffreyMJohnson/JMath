@@ -33,42 +33,6 @@ TEST(vector3, copyConstructor)
 
 }
 
-TEST(vector3, getVector3FromMatrix)
-{
-	Matrix3 mRow(
-		0, 1, 2,
-		3, 4, 5,
-		6, 7, 8);
-
-	Matrix3 mCol(
-		0, 3, 6,
-		1, 4, 7,
-		2, 5, 8);
-
-	MATRIX_MAJOR majorType = ROW;
-
-	Vector3 result = Matrix3::GetVector3(majorType, 0, mRow);
-	EXPECT_TRUE(result == Vector3(0, 1, 2));
-
-	result = Matrix3::GetVector3(majorType, 1, mRow);
-	EXPECT_TRUE(result == Vector3(3, 4, 5));
-
-	result = Matrix3::GetVector3(majorType, 2, mRow);
-	EXPECT_TRUE(result == Vector3(6, 7, 8));
-
-	majorType = COL;
-	result = Matrix3::GetVector3(majorType, 0, mCol);
-	EXPECT_TRUE(result == Vector3(0, 1, 2));
-
-	result = Matrix3::GetVector3(majorType, 1, mCol);
-	EXPECT_TRUE(result == Vector3(3, 4, 5));
-
-	result = Matrix3::GetVector3(majorType, 2, mCol);
-	EXPECT_TRUE(result == Vector3(6, 7, 8));
-
-
-}
-
 //test equality operator so can use to verify future tests
 TEST(vector3, equalityOperator)
 {

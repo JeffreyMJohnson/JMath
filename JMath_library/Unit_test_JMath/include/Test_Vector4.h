@@ -253,4 +253,13 @@ TEST(vector4, normalize)
 	EXPECT_TRUE(v2 == Vector4()) << v2;
 }
 
+TEST(vector4, dotProduct)
+{
+	Vector4 v1(5, 2, 15, -10);
+	Vector4 v2(-10, 4, -100, 12);
+	EXPECT_FLOAT_EQ(-1662, v1.DotProduct(v2));
+	EXPECT_TRUE(v1 == Vector4(5, 2, 15, -10));
+	EXPECT_TRUE(v2 == Vector4(-10, 4, -100, 12));
+}
+
 #endif //_TEST_VECTOR_4_H_

@@ -1,5 +1,8 @@
 #include "TheMath.h"
 
+/*
+Constructs a matrix filled with zeros.
+*/
 Matrix3::Matrix3()
 {
 	for (int row = 0; row < 3; row++)
@@ -11,6 +14,17 @@ Matrix3::Matrix3()
 	}
 }
 
+/*
+The data parameters assume a column major matrix starting in the upper left-hand corner
+and going left to right, top to bottom.
+E.g.
+********
+1  2  3
+4  5  6
+7  8  9
+********
+Matrix3(1,2,3,4,5,6,7,8,9);
+*/
 Matrix3::Matrix3(
 	const float m00,
 	const float m01,
@@ -43,6 +57,7 @@ Matrix3::~Matrix3()
 {
 }
 
+
 float* Matrix3::operator[](int rhs)
 {
 	float t[]{
@@ -53,6 +68,15 @@ float* Matrix3::operator[](int rhs)
 	return matrix[rhs];
 }
 
+/*
+Returns identity matrix
+e.g.
+*******
+1  0  0
+0  1  0
+0  0  1
+*******
+*/
 Matrix3 Matrix3::Identity()
 {
 	Matrix3 m;
@@ -72,7 +96,8 @@ Matrix3 Matrix3::Identity()
 }
 
 /*
-returns new rotation matrix from given angle in radians
+returns new rotation matrix from given angle in radians.   This assumes the use of a right-handed Cartesian coordinate system
+therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
 */
 Matrix3 Matrix3::SetupRotation(float radians)
 {
@@ -118,7 +143,7 @@ Matrix3 MyVector(
 Matrix3::GetVector3(ROW, 1, MyMatrix); returns a Vector3 representing the second row of MyMatrix => (4, 5, 6)
 Matrix3::GetVector3(COL, 0, MyMatrix); returns a Vector3 representing the first column of MyMatrix => (1, 4, 7))
 */
-const Vector3 Matrix3::GetVector3(MATRIX_MAJOR type, int index, const Matrix3& matrix)
+Vector3 Matrix3::GetVector3(MATRIX_MAJOR type, int index, const Matrix3& matrix)
 {
 	float x, y, z;
 	if (type == ROW)
@@ -246,7 +271,10 @@ Matrix3& Matrix3::operator*=(const Matrix3& rhs)
 	return *this = result;
 }
 
-const bool Matrix3::operator==(const Matrix3& rhs)
+/*
+Returns true if every element is equal to the element in the same position in the given matrix, else return false.
+*/
+bool Matrix3::operator==(const Matrix3& rhs)
 {
 	if (this == &rhs)
 		return true;
@@ -262,7 +290,7 @@ const bool Matrix3::operator==(const Matrix3& rhs)
 	return true;
 }
 
-const bool Matrix3::operator!=(const Matrix3& rhs)
+bool Matrix3::operator!=(const Matrix3& rhs)
 {
 	return !(*this == rhs);
 }

@@ -229,6 +229,14 @@ Vector4 Vector4::GetNormalized()
 	return v;
 }
 
+/*
+return dot product of this vector and given other vector
+*/
+float Vector4::DotProduct(const Vector4& other)
+{
+	return (x * other.x) + (y * other.y) + (z * other.z) + (w * other.w);
+}
+
 std::ostream& operator<<(std::ostream& out, const Vector4& rhs)
 {
 	out << "Vector4 [x:";

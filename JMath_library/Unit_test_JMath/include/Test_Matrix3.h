@@ -53,6 +53,42 @@ TEST(matrix3, copyConstructor)
 	EXPECT_FALSE(&m2 == &m) << "expect: " << &m2 << "result: " << &m;
 }
 
+TEST(matrix3, getVector3FromMatrix)
+{
+	Matrix3 mRow(
+		0, 1, 2,
+		3, 4, 5,
+		6, 7, 8);
+
+	Matrix3 mCol(
+		0, 3, 6,
+		1, 4, 7,
+		2, 5, 8);
+
+	MATRIX_MAJOR majorType = ROW;
+
+	Vector3 result = Matrix3::GetVector3(majorType, 0, mRow);
+	EXPECT_TRUE(result == Vector3(0, 1, 2));
+
+	result = Matrix3::GetVector3(majorType, 1, mRow);
+	EXPECT_TRUE(result == Vector3(3, 4, 5));
+
+	result = Matrix3::GetVector3(majorType, 2, mRow);
+	EXPECT_TRUE(result == Vector3(6, 7, 8));
+
+	majorType = COL;
+	result = Matrix3::GetVector3(majorType, 0, mCol);
+	EXPECT_TRUE(result == Vector3(0, 1, 2));
+
+	result = Matrix3::GetVector3(majorType, 1, mCol);
+	EXPECT_TRUE(result == Vector3(3, 4, 5));
+
+	result = Matrix3::GetVector3(majorType, 2, mCol);
+	EXPECT_TRUE(result == Vector3(6, 7, 8));
+
+
+}
+
 TEST(matrix3, transpose)
 {
 	Matrix3 m(
@@ -241,7 +277,6 @@ TEST(matrix3, setupRotation)
 		sin(rads), cos(rads), 0,
 		0, 0, 1);
 	EXPECT_TRUE(expected == m) << "result:\n" << m << "\nexpected:\n" << expected;
-
 }
 
 TEST(matrix3, setupScale)

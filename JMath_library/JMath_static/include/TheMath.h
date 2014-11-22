@@ -170,6 +170,9 @@ public:
 
 };
 
+/*
+Designates the list of data to extract from the grid i.e. horizontal or vertical.
+*/
 enum MATRIX_MAJOR
 {
 	ROW,
@@ -218,7 +221,7 @@ public:
 	returns false if given other Vector3 is either the same object as this or x and y are equal, else returns true
 	*/
 	bool operator!=(const Vector3& other);
-	
+
 	friend bool operator!=(const Vector3& lhs, const Vector3& rhs);
 
 	/*
@@ -227,7 +230,7 @@ public:
 	EXPECT given int to be greater than or equal to zero AND less than 3.
 	*/
 	float operator[](int rhs);
-	
+
 	friend std::ostream& operator<<(std::ostream& out, const Vector3& v);
 
 	//vector math functions
@@ -277,7 +280,7 @@ public:
 	Vector4();
 
 	Vector4(const float a_x, const float a_y, const float a_z, const float a_w);
-	
+
 	/*
 	construct and return a Vector4 from given hex number with values x for the red value, y for the
 	green value, z for the blue value and W for the alpha value.  The values will be from 0 to 255.
@@ -301,18 +304,18 @@ public:
 
 	Vector4& operator+=(const Vector4& rhs);
 	Vector4 operator+(const Vector4& rhs);
-	
+
 	Vector4& operator-=(const Vector4& rhs);
 	Vector4 operator-(const Vector4& rhs);
 	Vector4 operator-();
 
 	/*
-	returns ths value of element pointed by given index. 
+	returns ths value of element pointed by given index.
 	i.e. myVector4[0] returns myVector.x, myVector[0] returns myVector.y etc.
 	EXPECT: given value must be -1 < index < 4
 	*/
 	float operator[](const int index);
-	
+
 	/*
 	returns true if Vector not zero (Vector4 (0,0,0,0)) else returns false;
 	*/
@@ -342,6 +345,11 @@ public:
 	*/
 	bool Normalize();
 
+	/*
+	return dot product of this vector and given other vector
+	*/
+	float DotProduct(const Vector4& other);
+
 	friend std::ostream& operator<<(std::ostream& out, const Vector4& rhs);
 
 	float x, y, z, w;
@@ -355,7 +363,22 @@ class Matrix3
 {
 public:
 
+	/*
+	Constructs a matrix filled with zeros.
+	*/
 	Matrix3();
+
+	/*
+	The data parameters assume a column major matrix starting in the upper left-hand corner
+	and going left to right, top to bottom.
+	E.g.
+	********
+	1  2  3
+	4  5  6
+	7  8  9
+	********
+	Matrix3(1,2,3,4,5,6,7,8,9);
+	*/
 	Matrix3(
 		const float m00,
 		const float m01,
@@ -366,14 +389,24 @@ public:
 		const float m20,
 		const float m21,
 		const float m22);
+
 	Matrix3(Matrix3& rhs);
 	~Matrix3();
 
-	//builds and returns a new identity matrix 
+	/*
+	Returns identity matrix
+	e.g.
+	*******
+	1  0  0
+	0  1  0
+	0  0  1
+	*******
+	*/
 	static Matrix3 Identity();
 
 	/*
-	returns new rotation matrix
+	returns new rotation matrix from given angle in radians.   This assumes the use of a right-handed Cartesian coordinate system
+	therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
 	*/
 	static Matrix3 SetupRotation(float radians);
 
@@ -387,7 +420,7 @@ public:
 	*/
 	static Matrix3 SetupTranslation(Vector2& translation);
 
-	static const Vector3 GetVector3(MATRIX_MAJOR type, int index, const Matrix3& matrix);
+	static Vector3 GetVector3(MATRIX_MAJOR type, int index, const Matrix3& matrix);
 
 	//transposes this matrix
 	Matrix3& Transpose();
@@ -396,7 +429,7 @@ public:
 	Matrix3 GetTranspose();
 
 	/*
-	returns new vector the result of transforming the given vector with this matrix. 
+	returns new vector the result of transforming the given vector with this matrix.
 	Both the given vector and this matrix remain unchanged.
 	*/
 	//Vector3 Transform(Vector3 v);
@@ -413,12 +446,131 @@ public:
 	Matrix3& operator*=(const Matrix3& rhs);
 	float* operator[](int rhs);
 
-	const bool operator==(const Matrix3& rhs);
-	const bool operator!=(const Matrix3& rhs);
+	bool operator==(const Matrix3& rhs);
+	bool operator!=(const Matrix3& rhs);
 
 	friend std::ostream& operator<<(std::ostream& out, const Matrix3& m);
 
 	float matrix[3][3];
 };
+
+/*
+Representation of a 4X4 matrix
+NOTE: All operations assume column major layout
+*/
+class Matrix4
+{
+public:
+
+	/*
+	Constructs a matrix filled with zeros.
+	*/
+	Matrix4();
+
+	/*
+	The data parameters assume a column major matrix starting in the upper left-hand corner
+	and going left to right, top to bottom.
+	E.g.
+	*************
+	1   2   3   4
+	5   6   7   8
+	9  10  11  12
+	13 14  15  16
+	*************
+	Matrix4(1,2,3,4,5,6,7,8,9,10,11,12, 13, 14, 15, 16);
+	*/
+	Matrix4(
+		const float m00,
+		const float m01,
+		const float m02,
+		const float m03,
+		const float m10,
+		const float m11,
+		const float m12,
+		const float m13,
+		const float m20,
+		const float m21,
+		const float m22,
+		const float m23,
+		const float m30,
+		const float m31,
+		const float m32,
+		const float m33);
+
+	Matrix4(Matrix4& rhs);
+	~Matrix4();
+
+	///*
+	//Returns identity matrix
+	//e.g.
+	//*******
+	//1  0  0
+	//0  1  0
+	//0  0  1
+	//*******
+	//*/
+	//static Matrix4 Identity();
+
+	///*
+	//returns new rotation matrix from given angle in radians.   This assumes the use of a right-handed Cartesian coordinate system
+	//therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
+	//*/
+	//static Matrix4 SetupRotation(float radians);
+
+	///*
+	//returns new scale matrix
+	//*/
+	//static Matrix4 SetupScale(const Vector2& scale);
+
+	///*
+	//return new translation matrix
+	//*/
+	//static Matrix4 SetupTranslation(Vector2& translation);
+
+	/*this static function returns a Vector3 representing the given index (zero based) row or column of the given matrix parameter depending
+	on the given MATRIX_MAJOR enum type.
+	(e.g.
+	Matrix4 MyVector(
+	1, 2, 3, 4,
+	5, 6, 7, 8,
+	9, 10, 11, 12,
+	13, 14, 15, 16);
+	Matrix4::GetVector4(ROW, 1, MyMatrix); returns a Vector4 representing the second row of MyMatrix => (5, 6, 7, 8)
+	Matrix4::GetVector4(COL, 0, MyMatrix); returns a Vector4 representing the first column of MyMatrix => (1, 5, 9, 13)
+	*/
+	static Vector4 GetVector4(MATRIX_MAJOR type, int index, const Matrix4& matrix);
+
+	////transposes this matrix
+	//Matrix4& Transpose();
+
+	////returns a Matrix4 the transpose of this. This matrix does not change
+	//Matrix4 GetTranspose();
+
+	///*
+	//returns new vector the result of transforming the given vector with this matrix.
+	//Both the given vector and this matrix remain unchanged.
+	//*/
+	////Vector3 Transform(Vector3 v);
+
+	Matrix4& operator=(const Matrix4& rhs);
+
+	/*Matrix4 operator+(const Matrix4& rhs);
+	Matrix4 operator-(const Matrix4& rhs);
+	Matrix4 operator*(const Matrix4& rhs);
+	Vector3 operator*(const Vector3& rhs);*/
+
+	Matrix4& operator+=(const Matrix4& rhs);
+	Matrix4& operator-=(const Matrix4& rhs);
+	Matrix4& operator*=(const Matrix4& rhs);
+	/*float* operator[](int rhs);*/
+
+	bool operator==(const Matrix4& rhs);
+	bool operator!=(const Matrix4& rhs);
+
+	friend std::ostream& operator<<(std::ostream& out, const Matrix4& m);
+
+	float matrix[4][4];
+};
+
 
 #endif

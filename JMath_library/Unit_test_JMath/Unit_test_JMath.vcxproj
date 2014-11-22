@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SolutionDir)..\..\GoogleTest\msvc\gtest-md\Debug\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\GoogleTest\include\;$(SolutionDir)..\..\GoogleTest\;$(SolutionDir)JMath_static\include\;$(SolutionDir)Unit_test_JMath\include\;$(ProjectDir)include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\GoogleTest\include\;$(SolutionDir)..\..\GoogleTest\;$(SolutionDir)JMath_static\source\;$(SolutionDir)JMath_static\include\;$(SolutionDir)Unit_test_JMath\include\;$(ProjectDir)include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -89,6 +89,7 @@
   <ItemGroup>
     <ClInclude Include="include\Test_JMath.h" />
     <ClInclude Include="include\Test_Matrix3.h" />
+    <ClInclude Include="include\Test_Matrix4.h" />
     <ClInclude Include="include\Test_Vector2.h" />
     <ClInclude Include="include\Test_Vector3.h" />
     <ClInclude Include="include\Test_Vector4.h" />
@@ -97,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\JMath_static\source\Matrix3.cpp" />
+    <ClCompile Include="..\JMath_static\source\Matrix4.cpp" />
     <ClCompile Include="..\JMath_static\source\Vector2.cpp" />
     <ClCompile Include="..\JMath_static\source\Vector3.cpp" />
     <ClCompile Include="..\JMath_static\source\Vector4.cpp" />
