@@ -133,6 +133,25 @@ Matrix3 Matrix3::SetupTranslation(Vector2& translation)
 	return m;
 }
 
+/*
+Transforms the given Vector2 with this Matrix3 returning the Vector2 result.
+NOTE:this converts the given Vector2 to a Vector3 with the z parameter set to one to
+do the matrix math and then returns a Vector2 with the calculated x,y values.
+*/
+Vector2 Matrix3::Transform(const Vector2& v)
+{
+	Vector2 result;
+	//create implicit Vector4 to do the math
+	Vector3 p(v.x, v.y, 1);
+
+	Vector3 row = Matrix3::GetVector3(ROW, 0, *this);
+	result.x = row.DotProduct(p);
+	row = Matrix3::GetVector3(ROW, 1, *this);
+	result.y = row.DotProduct(p);
+	//don't use the third row anyway so don't bother calculating
+	return result;
+}
+
 /*this static function returns a Vector3 representing the given index (zero based) row or column of the given matrix parameter depending
 on the given MATRIX_MAJOR enum type.
 (e.g.
@@ -219,14 +238,14 @@ Matrix3 Matrix3::operator*(const Matrix3& rhs)
 	return result;
 }
 
-Vector3 Matrix3::operator*(const Vector3& rhs)
+Vector3 operator*(const Matrix3& lhs, const Vector3& rhs)
 {
 	Vector3 result;
-	Vector3 row = Matrix3::GetVector3(ROW, 0, *this);
+	Vector3 row = Matrix3::GetVector3(ROW, 0, lhs);
 	result.x = row.DotProduct(rhs);
-	row = Matrix3::GetVector3(ROW, 1, *this);
+	row = Matrix3::GetVector3(ROW, 1, lhs);
 	result.y = row.DotProduct(rhs);
-	row = Matrix3::GetVector3(ROW, 2, *this);
+	row = Matrix3::GetVector3(ROW, 2, lhs);
 	result.z = row.DotProduct(rhs);
 	return result;
 }
@@ -274,25 +293,25 @@ Matrix3& Matrix3::operator*=(const Matrix3& rhs)
 /*
 Returns true if every element is equal to the element in the same position in the given matrix, else return false.
 */
-bool Matrix3::operator==(const Matrix3& rhs)
+bool operator==(const Matrix3& lhs, const Matrix3& rhs)
 {
-	if (this == &rhs)
+	if (&lhs == &rhs)
 		return true;
 
 	for (int row = 0; row < 3; row++)
 	{
 		for (int col = 0; col < 3; col++)
 		{
-			if (matrix[row][col] != rhs.matrix[row][col])
+			if (lhs.matrix[row][col] != rhs.matrix[row][col])
 				return false;
 		}
 	}
 	return true;
 }
 
-bool Matrix3::operator!=(const Matrix3& rhs)
+bool operator!=(const Matrix3& lhs, const Matrix3& rhs)
 {
-	return !(*this == rhs);
+	return !(lhs == rhs);
 }
 
 std::ostream& operator<<(std::ostream& out, const Matrix3& m)

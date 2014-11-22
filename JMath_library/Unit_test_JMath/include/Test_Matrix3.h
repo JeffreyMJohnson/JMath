@@ -142,7 +142,7 @@ TEST(matrix3, doubleBracketOperator)
 		1, 2, 3,
 		4, 5, 6,
 		7, 8, 9);
-	
+
 	EXPECT_FLOAT_EQ(5, m[1][1]);
 	EXPECT_FLOAT_EQ(3, m[0][2]);
 
@@ -485,7 +485,7 @@ TEST(matrix3, productOperator)
 		42, 57, 72,
 		30, 42, 54);
 	m3 = m1 * m2 * Matrix3::Identity();
-	EXPECT_TRUE(expect == m3)<< "expected\n" << expect << "\nresult:\n" << m3;
+	EXPECT_TRUE(expect == m3) << "expected\n" << expect << "\nresult:\n" << m3;
 	EXPECT_TRUE(m1 == Matrix3(
 		9, 6, 3,
 		8, 5, 2,
@@ -494,6 +494,26 @@ TEST(matrix3, productOperator)
 		1, 2, 3,
 		4, 5, 6,
 		7, 8, 9));
+}
+
+TEST(matrix3, transform)
+{
+	Matrix3 m(
+		3, 12, 3,
+		7, 10, 4,
+		0, 0, 1);
+	Vector2 v(8, 7);
+	Vector2 result = m.Transform(v);
+	Vector2 expected(111, 130);
+
+	EXPECT_EQ(expected, result);
+	EXPECT_EQ(v, Vector2(8, 7));
+	EXPECT_EQ(m, Matrix3(
+		3, 12, 3,
+		7, 10, 4,
+		0, 0, 1));
+
+	EXPECT_TRUE(v == (Matrix3::Identity().Transform(v)));
 }
 
 TEST(matrix3, productOperatorVector3)
@@ -512,9 +532,9 @@ TEST(matrix3, productOperatorVector3)
 		134,
 		72);
 
-	EXPECT_TRUE(expected == result);
-	EXPECT_TRUE(v == Vector3(8, 7, 2));
-	EXPECT_TRUE(m == Matrix3(
+	EXPECT_EQ(expected, result);
+	EXPECT_EQ(v, Vector3(8, 7, 2));
+	EXPECT_EQ(m, Matrix3(
 		3, 12, 6,
 		7, 10, 4,
 		5, 2, 9));

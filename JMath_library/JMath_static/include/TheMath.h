@@ -422,6 +422,13 @@ public:
 
 	static Vector3 GetVector3(MATRIX_MAJOR type, int index, const Matrix3& matrix);
 
+	/*
+	Transforms the given Vector2 with this Matrix3 returning the Vector2 result.
+	NOTE:this converts the given Vector2 to a Vector3 with the z parameter set to one to
+	do the matrix math and then returns a Vector2 with the calculated x,y values.
+	*/
+	Vector2 Transform(const Vector2& point);
+
 	//transposes this matrix
 	Matrix3& Transpose();
 
@@ -439,15 +446,16 @@ public:
 	Matrix3 operator+(const Matrix3& rhs);
 	Matrix3 operator-(const Matrix3& rhs);
 	Matrix3 operator*(const Matrix3& rhs);
-	Vector3 operator*(const Vector3& rhs);
+	friend Vector3 operator*(const Matrix3& lhs, const Vector3& rhs);
 
 	Matrix3& operator+=(const Matrix3& rhs);
 	Matrix3& operator-=(const Matrix3& rhs);
 	Matrix3& operator*=(const Matrix3& rhs);
 	float* operator[](int rhs);
 
-	bool operator==(const Matrix3& rhs);
-	bool operator!=(const Matrix3& rhs);
+	//bool operator==(const Matrix3& rhs);
+	friend bool operator==(const Matrix3& lhs, const Matrix3& rhs);
+	friend bool operator!=(const Matrix3& lhs, const Matrix3& rhs);
 
 	friend std::ostream& operator<<(std::ostream& out, const Matrix3& m);
 
@@ -500,16 +508,17 @@ public:
 	Matrix4(Matrix4& rhs);
 	~Matrix4();
 
-	///*
-	//Returns identity matrix
-	//e.g.
-	//*******
-	//1  0  0
-	//0  1  0
-	//0  0  1
-	//*******
-	//*/
-	//static Matrix4 Identity();
+	/*
+	Returns identity matrix
+	e.g.
+	**********
+	1  0  0  0
+	0  1  0  0
+	0  0  1  0
+	0  0  0  1
+	**********
+	*/
+	static Matrix4 Identity();
 
 	///*
 	//returns new rotation matrix from given angle in radians.   This assumes the use of a right-handed Cartesian coordinate system
@@ -526,6 +535,13 @@ public:
 	//return new translation matrix
 	//*/
 	//static Matrix4 SetupTranslation(Vector2& translation);
+
+	/*
+	Transforms the given Vector3 with this Matrix4 returning the Vector3 result.
+	NOTE:this converts the given Vector3 to a Vector4 with the w parameter set to one to
+	do the matrix math and then returns a Vector3 with the calculated x,y,z values.
+	*/
+	Vector3 Transform(const Vector3& point);
 
 	/*this static function returns a Vector3 representing the given index (zero based) row or column of the given matrix parameter depending
 	on the given MATRIX_MAJOR enum type.
@@ -546,27 +562,20 @@ public:
 	////returns a Matrix4 the transpose of this. This matrix does not change
 	//Matrix4 GetTranspose();
 
-	///*
-	//returns new vector the result of transforming the given vector with this matrix.
-	//Both the given vector and this matrix remain unchanged.
-	//*/
-	////Vector3 Transform(Vector3 v);
-
 	Matrix4& operator=(const Matrix4& rhs);
 
-	/*Matrix4 operator+(const Matrix4& rhs);
-	Matrix4 operator-(const Matrix4& rhs);
-	Matrix4 operator*(const Matrix4& rhs);
-	Vector3 operator*(const Vector3& rhs);*/
+	friend Matrix4 operator+(const Matrix4& lhs, const Matrix4& rhs);
+	friend Matrix4 operator-(const Matrix4& lhs, const Matrix4& rhs);
+	friend Matrix4 operator*(const Matrix4& lhs, const Matrix4& rhs);
+	friend Vector4 operator*(const Matrix4& lhs, const Vector4& rhs);
 
 	Matrix4& operator+=(const Matrix4& rhs);
 	Matrix4& operator-=(const Matrix4& rhs);
 	Matrix4& operator*=(const Matrix4& rhs);
 	/*float* operator[](int rhs);*/
 
-	bool operator==(const Matrix4& rhs);
 	friend bool operator==(const Matrix4& lhs, const Matrix4& rhs);
-	bool operator!=(const Matrix4& rhs);
+	friend bool operator!=(const Matrix4& lhs, const Matrix4& rhs);
 
 	friend std::ostream& operator<<(std::ostream& out, const Matrix4& m);
 

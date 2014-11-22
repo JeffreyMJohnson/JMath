@@ -69,6 +69,63 @@ Matrix4::Matrix4(Matrix4& rhs)
 
 Matrix4::~Matrix4(){}
 
+/*
+Returns identity matrix
+e.g.
+**********
+1  0  0  0
+0  1  0  0
+0  0  1  0
+0  0  0  1
+**********
+*/
+Matrix4 Matrix4::Identity()
+{
+	Matrix4 m;
+	m.matrix[0][0] = 1;
+	m.matrix[0][1] = 0;
+	m.matrix[0][2] = 0;
+	m.matrix[0][3] = 0;
+
+	m.matrix[1][0] = 0;
+	m.matrix[1][1] = 1;
+	m.matrix[1][2] = 0;
+	m.matrix[1][3] = 0;
+
+	m.matrix[2][0] = 0;
+	m.matrix[2][1] = 0;
+	m.matrix[2][2] = 1;
+	m.matrix[2][3] = 0;
+
+	m.matrix[3][0] = 0;
+	m.matrix[3][1] = 0;
+	m.matrix[3][2] = 0;
+	m.matrix[3][3] = 1;
+
+	return m;
+}
+
+/*
+Transforms the given Vector3 with this Matrix4 returning the Vector3 result.
+NOTE:this converts the given Vector3 to a Vector4 with the w parameter set to one to
+do the matrix math and then returns a Vector3 with the calculated x,y,z values.
+*/
+Vector3 Matrix4::Transform(const Vector3& v)
+{
+	Vector3 result;
+	//create implicit Vector4 to do the math
+	Vector4 r(v.x, v.y, v.z, 1);
+
+	Vector4 row = Matrix4::GetVector4(ROW, 0, *this);
+	result.x = row.DotProduct(r);
+	row = Matrix4::GetVector4(ROW, 1, *this);
+	result.y = row.DotProduct(r);
+	row = Matrix4::GetVector4(ROW, 2, *this);
+	result.z = row.DotProduct(r);
+	//don't use the fourth row anyway so don't bother calculating
+	return result;
+}
+
 /*this static function returns a Vector3 representing the given index (zero based) row or column of the given matrix parameter depending
 on the given MATRIX_MAJOR enum type.
 (e.g.
@@ -115,22 +172,6 @@ Matrix4& Matrix4::operator=(const Matrix4& rhs)
 /*
 Returns true if every element is equal to the element in the same position in the given matrix, else return false.
 */
-bool Matrix4::operator==(const Matrix4& rhs)
-{
-	if (this == &rhs)
-		return true;
-
-	for (int row = 0; row < 4; row++)
-	{
-		for (int col = 0; col < 4; col++)
-		{
-			if (matrix[row][col] != rhs.matrix[row][col])
-				return false;
-		}
-	}
-	return true;
-}
-
 bool operator==(const Matrix4& lhs, const Matrix4& rhs)
 {
 	if (&lhs == &rhs)
@@ -147,9 +188,9 @@ bool operator==(const Matrix4& lhs, const Matrix4& rhs)
 	return true;
 }
 
-bool Matrix4::operator!=(const Matrix4& rhs)
+bool operator!=(const Matrix4& lhs, const Matrix4& rhs)
 {
-	return !(*this == rhs);
+	return !(lhs == rhs);
 }
 
 std::ostream& operator<<(std::ostream& out, const Matrix4& m)
@@ -161,6 +202,44 @@ std::ostream& operator<<(std::ostream& out, const Matrix4& m)
 	out << "** " << m.matrix[3][0] << "\t" << m.matrix[3][1] << "\t" << m.matrix[3][2] << "\t" << m.matrix[3][3] << "  **\n";
 	out << "*********************\n";
 	return out;
+}
+
+Matrix4 operator+(const Matrix4& lhs, const Matrix4& rhs)
+{
+	Matrix4 r;
+	r = lhs;
+	r += rhs;
+	return r;
+}
+
+Matrix4 operator-(const Matrix4& lhs, const Matrix4& rhs)
+{
+	Matrix4 r;
+	r = lhs;
+	r -= rhs;
+	return r;
+}
+
+Matrix4 operator*(const Matrix4& lhs, const Matrix4& rhs)
+{
+	Matrix4 r;
+	r = lhs;
+	r *= rhs;
+	return r;
+}
+
+Vector4 operator*(const Matrix4& lhs, const Vector4& rhs)
+{
+	Vector4 result;
+	Vector4 row = Matrix4::GetVector4(ROW, 0, lhs);
+	result.x = row.DotProduct(rhs);
+	row = Matrix4::GetVector4(ROW, 1, lhs);
+	result.y = row.DotProduct(rhs);
+	row = Matrix4::GetVector4(ROW, 2, lhs);
+	result.z = row.DotProduct(rhs);
+	row = Matrix4::GetVector4(ROW, 3, lhs);
+	result.w = row.DotProduct(rhs);
+	return result;
 }
 
 Matrix4& Matrix4::operator+=(const Matrix4& rhs)

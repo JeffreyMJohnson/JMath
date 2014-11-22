@@ -223,6 +223,7 @@ TEST(matrix4, getVector4FromMatrix)
 
 TEST(matrix4, productAssignemntOperator)
 {
+
 	Matrix4 m1(
 		0, 1, 2, 0,
 		4, 5, 6, 0,
@@ -282,6 +283,28 @@ TEST(matrix4, productAssignemntOperator)
 		98, -5, 180, 0,
 		0, 0, 0, 1), m2);
 
+	//rotate 90,
+	m1 = Matrix4(
+		1, 0, 0, 0,
+		0, 0, -1, 0,
+		0, 1, 0, 0,
+		0, 0, 0, 1);
+	//translate 1,2,3
+	m2 = Matrix4(
+		1, 0, 0, 1,
+		0, 1, 0, 2,
+		0, 0, 1, 3,
+		0, 0, 0, 1);
+	m1 *= m2;
+	expect = Matrix4(
+		1, 0, 0, 1,
+		0, 0, -1, -3,
+		0, 1, 0, 2,
+		0, 0, 0, 1);
+	//scale
+
+	EXPECT_EQ(expect, m1);
+
 	//EXPECT_FLOAT_EQ(54, m1.matrix[0][0]);
 	//EXPECT_FLOAT_EQ(72, m1.matrix[0][1]);
 	//EXPECT_FLOAT_EQ(90, m1.matrix[0][2]);
@@ -293,7 +316,285 @@ TEST(matrix4, productAssignemntOperator)
 	//EXPECT_FLOAT_EQ(54, m1.matrix[2][2]);
 
 	//verify multiply identity equals same matrix
-	//EXPECT_TRUE(m2 == (m2 *= Matrix4::Identity()));
+	EXPECT_TRUE(m2 == (m2 *= Matrix4::Identity()));
+}
+
+TEST(matrix4, identity)
+{
+	Matrix4 expect(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+	EXPECT_EQ(expect, Matrix4::Identity());
+}
+
+TEST(matrix4, transform)
+{
+	Matrix4 m(
+		3, 12, 6, 0,
+		7, 10, 4, 0,
+		5, 2, 9, 0,
+		0, 0, 0, 1);
+	Vector3 v(
+		8,
+		7,
+		2);
+	Vector3 result = m.Transform(v);
+	Vector3 expected(
+		120,
+		134,
+		72);
+
+	EXPECT_TRUE(expected == result);
+	EXPECT_TRUE(v == Vector3(8, 7, 2));
+	EXPECT_TRUE(m == Matrix4(
+		3, 12, 6, 0,
+		7, 10, 4, 0,
+		5, 2, 9, 0,
+		0, 0, 0, 1));
+
+	EXPECT_TRUE(v == (Matrix4::Identity().Transform(v)));
+}
+
+TEST(matrix4, productOperatorVector4)
+{
+	Matrix4 m(
+		3, 12, 6, 2,
+		7, 10, 4, -3,
+		5, 2, 9, 3,
+		0, 0, 0, 1);
+	Vector4 v(
+		8,
+		7,
+		2,
+		1);
+	Vector4 result = m * v;
+	Vector4 expected(
+		122,
+		131,
+		75,
+		1);
+
+	EXPECT_EQ(expected, result);
+	EXPECT_EQ(v, Vector4(8, 7, 2, 1));
+	EXPECT_EQ(m, Matrix4(
+		3, 12, 6, 2,
+		7, 10, 4, -3,
+		5, 2, 9, 3,
+		0, 0, 0, 1));
+
+	EXPECT_TRUE(v == (Matrix4::Identity() * v));
+}
+
+TEST(matrix4, productOperator)
+{
+
+	Matrix4 m1(
+		0, 1, 2, 0,
+		4, 5, 6, 0,
+		8, 9, 10, 0,
+		0, 0, 0, 1);
+	Matrix4 m2(
+		0, 1, 2, 0,
+		4, 5, 6, 0,
+		8, 9, 10, 0,
+		0, 0, 0, 1);
+	Matrix4 r;
+	r = m1 * m2;
+	Matrix4 expect(
+		20, 23, 26, 0,
+		68, 83, 98, 0,
+		116, 143, 170, 0,
+		0, 0, 0, 1);
+
+	EXPECT_EQ(expect, r);
+	EXPECT_EQ(Matrix4(
+		0, 1, 2, 0,
+		4, 5, 6, 0,
+		8, 9, 10, 0,
+		0, 0, 0, 1), m1);
+	EXPECT_EQ(Matrix4(
+		0, 1, 2, 0,
+		4, 5, 6, 0,
+		8, 9, 10, 0,
+		0, 0, 0, 1), m2);
+
+	m1 = Matrix4(
+		320, -8, 58, 0,
+		45, 26, -369, 0,
+		65, 14, -65, 0,
+		0, 0, 0, 1);
+
+	m2 = Matrix4(
+		12, -25, -98, 0,
+		45, 369, 7, 0,
+		98, -5, 180, 0,
+		0, 0, 0, 1);
+
+	r = m1 * m2;
+
+	expect = Matrix4(
+		9164, -11242, -20976, 0,
+		-34452, 10314, -70648, 0,
+		-4960, 3866, -17972, 0,
+		0, 0, 0, 1);
+
+	EXPECT_EQ(expect, r);
+	EXPECT_EQ(Matrix4(
+		320, -8, 58, 0,
+		45, 26, -369, 0,
+		65, 14, -65, 0,
+		0, 0, 0, 1), m1);
+	EXPECT_EQ(Matrix4(
+		12, -25, -98, 0,
+		45, 369, 7, 0,
+		98, -5, 180, 0,
+		0, 0, 0, 1), m2);
+
+	//rotate 90,
+	m1 = Matrix4(
+		1, 0, 0, 0,
+		0, 0, -1, 0,
+		0, 1, 0, 0,
+		0, 0, 0, 1);
+	//translate 1,2,3
+	m2 = Matrix4(
+		1, 0, 0, 1,
+		0, 1, 0, 2,
+		0, 0, 1, 3,
+		0, 0, 0, 1);
+
+	r = m1 * m2;
+
+	expect = Matrix4(
+		1, 0, 0, 1,
+		0, 0, -1, -3,
+		0, 1, 0, 2,
+		0, 0, 0, 1);
+	//scale
+
+	EXPECT_EQ(expect, r);
+
+	//EXPECT_FLOAT_EQ(54, m1.matrix[0][0]);
+	//EXPECT_FLOAT_EQ(72, m1.matrix[0][1]);
+	//EXPECT_FLOAT_EQ(90, m1.matrix[0][2]);
+	//EXPECT_FLOAT_EQ(42, m1.matrix[1][0]);
+	//EXPECT_FLOAT_EQ(57, m1.matrix[1][1]);
+	//EXPECT_FLOAT_EQ(72, m1.matrix[1][2]);
+	//EXPECT_FLOAT_EQ(30, m1.matrix[2][0]);
+	//EXPECT_FLOAT_EQ(42, m1.matrix[2][1]);
+	//EXPECT_FLOAT_EQ(54, m1.matrix[2][2]);
+
+	//verify multiply identity equals same matrix
+	EXPECT_TRUE(r == (r = m2 * Matrix4::Identity()));
+}
+
+TEST(matrix4, subtractOperator)
+{
+	Matrix4 m1(
+		1, 2, 3, 4,
+		4, 5, 6, 3,
+		7, 8, 9, 2,
+		1, 2, 3, 4);
+	Matrix4 m2(
+		9, 8, 7, 2,
+		6, 5, 4, 3,
+		3, 2, 1, -3,
+		0, 0, 2, 1);
+
+	Matrix4 result = m2 - m1;
+
+	Matrix4 expect(
+		8, 6, 4, -2,
+		2, 0, -2, 0,
+		-4, -6, -8, -5,
+		-1, -2, -1, -3);
+	EXPECT_EQ(expect, result);
+	EXPECT_EQ(m1, Matrix4(
+		1, 2, 3, 4,
+		4, 5, 6, 3,
+		7, 8, 9, 2,
+		1, 2, 3, 4));
+	EXPECT_EQ(m2, Matrix4(
+		9, 8, 7, 2,
+		6, 5, 4, 3,
+		3, 2, 1, -3,
+		0, 0, 2, 1));
+
+	//verify chaining 
+	result = m2 - m1 - m1;
+	expect = Matrix4(
+		7, 4, 1, -6,
+		-2, -5, -8, -3,
+		-11, -14, -17, -7,
+		-2, -4, -4, -7);
+
+	EXPECT_EQ(expect, result);
+	EXPECT_EQ(m1, Matrix4(
+		1, 2, 3, 4,
+		4, 5, 6, 3,
+		7, 8, 9, 2,
+		1, 2, 3, 4));
+	EXPECT_EQ(m2, Matrix4(
+		9, 8, 7, 2,
+		6, 5, 4, 3,
+		3, 2, 1, -3,
+		0, 0, 2, 1));
+}
+
+TEST(matrix4, additionOperator)
+{
+	Matrix4 m1(
+		1, 2, 3, 4,
+		4, 5, 6, 3,
+		7, 8, 9, 2,
+		1, 2, 3, 4);
+	Matrix4 m2(
+		9, 8, 7, 2,
+		6, 5, 4, 3,
+		3, 2, 1, -3,
+		0, 0, 2, 1);
+
+	Matrix4 result = m2 + m1;
+
+	Matrix4 expect(
+		10, 10, 10, 6,
+		10, 10, 10, 6,
+		10, 10, 10, -1,
+		1, 2, 5, 5);
+
+	EXPECT_EQ(expect, result);
+	EXPECT_EQ(m1, Matrix4(
+		1, 2, 3, 4,
+		4, 5, 6, 3,
+		7, 8, 9, 2,
+		1, 2, 3, 4));
+	EXPECT_EQ(m2, Matrix4(
+		9, 8, 7, 2,
+		6, 5, 4, 3,
+		3, 2, 1, -3,
+		0, 0, 2, 1));
+
+	//verify chaining 
+	result = m1 + m2 + result;
+	expect = Matrix4(
+		20, 20, 20, 12,
+		20, 20, 20, 12,
+		20, 20, 20, -2,
+		2, 4, 10, 10);
+
+	EXPECT_EQ(expect, result);
+	EXPECT_EQ(m1, Matrix4(
+		1, 2, 3, 4,
+		4, 5, 6, 3,
+		7, 8, 9, 2,
+		1, 2, 3, 4));
+	EXPECT_EQ(m2, Matrix4(
+		9, 8, 7, 2,
+		6, 5, 4, 3,
+		3, 2, 1, -3,
+		0, 0, 2, 1));
 }
 
 #endif
