@@ -452,6 +452,7 @@ public:
 	Matrix3 operator+(const Matrix3& rhs);
 	Matrix3 operator-(const Matrix3& rhs);
 	Matrix3 operator*(const Matrix3& rhs);
+	friend Vector2 operator*(const Matrix3& lhs, const Vector2& rhs);
 	friend Vector3 operator*(const Matrix3& lhs, const Vector3& rhs);
 
 	Matrix3& operator+=(const Matrix3& rhs);

@@ -141,28 +141,6 @@ axis x,y and z.
 */
 Matrix4 Matrix4::SetupRotation(float radians)
 {
-	//Matrix4 id = Matrix4::Identity();
-	//Matrix4 result = id;
-
-	//Matrix4 rotX = id;
-	//rotX.matrix[1][1] = cos(radians);
-	//rotX.matrix[1][2] = -sin(radians);
-	//rotX.matrix[2][1] = sin(radians);
-	//rotX.matrix[2][2] = cos(radians);
-
-	//Matrix4 rotY = id;
-	//rotY.matrix[0][0] = cos(radians);
-	//rotY.matrix[0][2] = sin(radians);
-	//rotY.matrix[2][0] = -sin(radians);
-	//rotY.matrix[2][2] = cos(radians);
-
-	//Matrix4 rotZ = id;
-	//rotZ.matrix[0][0] = cos(radians);
-	//rotZ.matrix[0][1] = -sin(radians);
-	//rotZ.matrix[1][0] = sin(radians);
-	//rotZ.matrix[1][1] = cos(radians);
-
-	//result = rotX * rotY * rotZ;
 	Matrix4 result;
 	result =
 		Matrix4::SetupRotation(X, radians) *

@@ -245,6 +245,19 @@ Vector3 operator*(const Matrix3& lhs, const Vector3& rhs)
 	return result;
 }
 
+Vector2 operator*(const Matrix3& lhs, const Vector2& rhs)
+{
+	Vector2 result;
+	//create imlicit Vector3 for math
+	Vector3 v(rhs.x, rhs.y, 1);
+	Vector3 row = Matrix3::GetVector3(ROW, 0, lhs);
+	result.x = row.DotProduct(v);
+	row = Matrix3::GetVector3(ROW, 1, lhs);
+	result.y = row.DotProduct(v);
+	//no z so no need to calculate
+	return result;
+}
+
 Matrix3& Matrix3::operator+=(const Matrix3& rhs)
 {
 	for (int row = 0; row < 3; row++)

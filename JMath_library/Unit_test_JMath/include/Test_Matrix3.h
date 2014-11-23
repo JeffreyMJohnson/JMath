@@ -545,6 +545,30 @@ TEST(matrix3, productOperatorVector3)
 	EXPECT_TRUE(v == (Matrix3::Identity() * v));
 }
 
+TEST(matrix3, productOperatorVector2)
+{
+	Matrix3 m(
+		3, 12, 6,
+		7, 10, 4,
+		5, 2, 9);
+	Vector2 v(
+		8,
+		7);
+	Vector2 result = m * v;
+	Vector2 expected(
+		114,
+		130);
+
+	EXPECT_EQ(expected, result);
+	EXPECT_EQ(v, Vector2(8, 7));
+	EXPECT_EQ(m, Matrix3(
+		3, 12, 6,
+		7, 10, 4,
+		5, 2, 9));
+
+	EXPECT_TRUE(v == (Matrix3::Identity() * v));
+}
+
 TEST(matrix3, additionAssignemntOperator)
 {
 	Matrix3 m1(
