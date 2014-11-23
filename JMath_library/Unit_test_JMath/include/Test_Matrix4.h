@@ -476,15 +476,24 @@ TEST(matrix4, productOperator)
 
 	EXPECT_EQ(expect, r);
 
-	//EXPECT_FLOAT_EQ(54, m1.matrix[0][0]);
-	//EXPECT_FLOAT_EQ(72, m1.matrix[0][1]);
-	//EXPECT_FLOAT_EQ(90, m1.matrix[0][2]);
-	//EXPECT_FLOAT_EQ(42, m1.matrix[1][0]);
-	//EXPECT_FLOAT_EQ(57, m1.matrix[1][1]);
-	//EXPECT_FLOAT_EQ(72, m1.matrix[1][2]);
-	//EXPECT_FLOAT_EQ(30, m1.matrix[2][0]);
-	//EXPECT_FLOAT_EQ(42, m1.matrix[2][1]);
-	//EXPECT_FLOAT_EQ(54, m1.matrix[2][2]);
+	m1 = Matrix4(
+		1, 2, 1, 2,
+		2, 1, 1, 2,
+		3, 2, 1, 3,
+		4, 2, 1, 2);
+	m2 = Matrix4(
+		3, 2, 4, 1,
+		3, 1, 2, 1,
+		0, -2, 1, 2,
+		-3, 2, 1, 4);
+	expect = Matrix4(
+		3, 6, 11, 13,
+		3, 7, 13, 13,
+		6, 12, 20, 19,
+		12, 12, 23, 16);
+	r = m1 * m2;
+
+	EXPECT_EQ(expect, r);
 
 	//verify multiply identity equals same matrix
 	EXPECT_TRUE(r == (r = m2 * Matrix4::Identity()));
@@ -597,7 +606,7 @@ TEST(matrix4, additionOperator)
 		0, 0, 2, 1));
 }
 
-TEST(matrix4, setupRotation)
+TEST(matrix4, setupRotationIndividualAxis)
 {
 	Matrix4 m = Matrix4::SetupRotation(X, JMath::DegreeToRadians(0));
 	Matrix4 expected(
@@ -659,6 +668,93 @@ TEST(matrix4, setupRotation)
 		0, sin(rads), cos(rads), 0,
 		0, 0, 0, 1);
 	EXPECT_EQ(expected, m);
+}
+
+TEST(matrix4, setupRotationCombinesAxisSingleValue)
+{
+	Matrix4 m = Matrix4::SetupRotation(JMath::DegreeToRadians(0));
+	Matrix4 expected(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+
+	EXPECT_EQ(expected, m);
+
+	float rads = JMath::DegreeToRadians(90);
+	m = Matrix4::SetupRotation(rads);
+	expected = Matrix4(
+		0, 0, 1, 0,
+		0, -1, 0, 0,
+		1, 0, 0, 0,
+		0, 0, 0, 1);
+	float delta = .00001;
+	EXPECT_NEAR(0, m[0][0], delta);
+	EXPECT_NEAR(0, m[0][1], delta);
+	EXPECT_NEAR(1, m[0][2], delta);
+	EXPECT_NEAR(0, m[0][3], delta);
+	EXPECT_NEAR(0, m[1][0], delta);
+	EXPECT_NEAR(-1, m[1][1], delta);
+	EXPECT_NEAR(0, m[1][2], delta);
+	EXPECT_NEAR(0, m[1][3], delta);
+	EXPECT_NEAR(1, m[2][0], delta);
+	EXPECT_NEAR(0, m[2][1], delta);
+	EXPECT_NEAR(0, m[2][2], delta);
+	EXPECT_NEAR(0, m[2][3], delta);
+	EXPECT_NEAR(0, m[3][0], delta);
+	EXPECT_NEAR(0, m[3][1], delta);
+	EXPECT_NEAR(0, m[3][2], delta);
+	EXPECT_NEAR(1, m[3][3], delta);
+
+}
+TEST(matrix4, setupRotationCombinesAxisVector3)
+{
+	Matrix4 m = Matrix4::SetupRotation(JMath::DegreeToRadians(0));
+	Matrix4 expected(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+
+	EXPECT_EQ(expected, m);
+
+	float rads = JMath::DegreeToRadians(90);
+	Vector3 angles(rads, rads, rads);
+	m = Matrix4::SetupRotation(angles);
+	expected = Matrix4(
+		0, 0, 1, 0,
+		0, -1, 0, 0,
+		1, 0, 0, 0,
+		0, 0, 0, 1);
+	float delta = .00001;
+	EXPECT_NEAR(0, m[0][0], delta);
+	EXPECT_NEAR(0, m[0][1], delta);
+	EXPECT_NEAR(1, m[0][2], delta);
+	EXPECT_NEAR(0, m[0][3], delta);
+	EXPECT_NEAR(0, m[1][0], delta);
+	EXPECT_NEAR(-1, m[1][1], delta);
+	EXPECT_NEAR(0, m[1][2], delta);
+	EXPECT_NEAR(0, m[1][3], delta);
+	EXPECT_NEAR(1, m[2][0], delta);
+	EXPECT_NEAR(0, m[2][1], delta);
+	EXPECT_NEAR(0, m[2][2], delta);
+	EXPECT_NEAR(0, m[2][3], delta);
+	EXPECT_NEAR(0, m[3][0], delta);
+	EXPECT_NEAR(0, m[3][1], delta);
+	EXPECT_NEAR(0, m[3][2], delta);
+	EXPECT_NEAR(1, m[3][3], delta);
+
+	rads = JMath::DegreeToRadians(-90);
+	angles.y = angles.z = 0;
+	angles.x = rads;
+	m = Matrix4::SetupRotation(angles);
+	expected = Matrix4(
+		1, 0, 0, 0,
+		0, cos(rads), -sin(rads), 0,
+		0, sin(rads), cos(rads), 0,
+		0, 0, 0, 1);
+	EXPECT_EQ(expected, m);
+
 }
 
 TEST(matrix4, setupScale)

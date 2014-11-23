@@ -136,6 +136,55 @@ Matrix4 Matrix4::SetupRotation(AXIS axis, float radians)
 }
 
 /*
+returns new rotation matrix consisting of products of rotation matrix of given angle around each
+axis x,y and z.
+*/
+Matrix4 Matrix4::SetupRotation(float radians)
+{
+	//Matrix4 id = Matrix4::Identity();
+	//Matrix4 result = id;
+
+	//Matrix4 rotX = id;
+	//rotX.matrix[1][1] = cos(radians);
+	//rotX.matrix[1][2] = -sin(radians);
+	//rotX.matrix[2][1] = sin(radians);
+	//rotX.matrix[2][2] = cos(radians);
+
+	//Matrix4 rotY = id;
+	//rotY.matrix[0][0] = cos(radians);
+	//rotY.matrix[0][2] = sin(radians);
+	//rotY.matrix[2][0] = -sin(radians);
+	//rotY.matrix[2][2] = cos(radians);
+
+	//Matrix4 rotZ = id;
+	//rotZ.matrix[0][0] = cos(radians);
+	//rotZ.matrix[0][1] = -sin(radians);
+	//rotZ.matrix[1][0] = sin(radians);
+	//rotZ.matrix[1][1] = cos(radians);
+
+	//result = rotX * rotY * rotZ;
+	Matrix4 result;
+	result =
+		Matrix4::SetupRotation(X, radians) *
+		Matrix4::SetupRotation(Y, radians) *
+		Matrix4::SetupRotation(Z, radians);
+	return result;
+}
+
+/*
+returns new rotation matrix from Vector3 of angles to rotate around each axis
+*/
+Matrix4 Matrix4::SetupRotation(const Vector3& angles)
+{
+	Matrix4 result;
+	result =
+		Matrix4::SetupRotation(X, angles.x) *
+		Matrix4::SetupRotation(Y, angles.y) *
+		Matrix4::SetupRotation(Z, angles.z);
+	return result;
+}
+
+/*
 returns new scale matrix
 */
 Matrix4 Matrix4::SetupScale(const Vector3& scale)
@@ -187,7 +236,7 @@ returns reference to this object to allow for operation chaining
 Matrix4& Matrix4::Transpose()
 {
 	Matrix4 m;
-	for (int row= 0; row < 4; row++)
+	for (int row = 0; row < 4; row++)
 	{
 		//get the row'th col from this Matrix
 		Vector4 v = Matrix4::GetVector4(COL, row, *this);
@@ -200,7 +249,7 @@ Matrix4& Matrix4::Transpose()
 	*this = m;
 	//return reference to this so can chain operations
 	return *this;
-	
+
 }
 
 //returns a Matrix4 the transpose of this. This matrix does not change
@@ -217,7 +266,7 @@ Matrix4 Matrix4::GetTranspose()
 		m.matrix[row][2] = v.z;
 		m.matrix[row][3] = v.w;
 	}
-	
+
 	return m;
 }
 

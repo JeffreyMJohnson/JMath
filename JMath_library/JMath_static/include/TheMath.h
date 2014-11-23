@@ -533,6 +533,17 @@ public:
 	static Matrix4 SetupRotation(AXIS axis, float radians);
 
 	/*
+	returns new rotation matrix consisting of products of rotation matrix of given angle around each
+	axis x,y and z.
+	*/
+	static Matrix4 SetupRotation(float radians);
+
+	/* 
+	returns new rotation matrix from Vector3 of angles to rotate around each axis
+	*/
+	static Matrix4 SetupRotation(const Vector3& angles);
+
+	/*
 	returns new scale matrix
 	*/
 	static Matrix4 SetupScale(const Vector3& scale);
