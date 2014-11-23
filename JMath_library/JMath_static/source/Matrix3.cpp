@@ -243,7 +243,7 @@ Vector3 operator*(const Matrix3& lhs, const Vector3& rhs)
 	row = Matrix3::GetVector3(ROW, 2, lhs);
 	result.z = row.DotProduct(rhs);
 	return result;
-}
+}\
 
 Vector2 operator*(const Matrix3& lhs, const Vector2& rhs)
 {

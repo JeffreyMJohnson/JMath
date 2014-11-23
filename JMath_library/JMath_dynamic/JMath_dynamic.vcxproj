@@ -39,7 +39,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)JMath_static\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)JMath_static\include;$(ProjectDir)include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)JMath_static\include;$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -70,8 +73,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\JMath_static\source\Matrix3.cpp" />
+    <ClCompile Include="..\JMath_static\source\Matrix4.cpp" />
     <ClCompile Include="..\JMath_static\source\Vector2.cpp" />
     <ClCompile Include="..\JMath_static\source\Vector3.cpp" />
+    <ClCompile Include="..\JMath_static\source\Vector4.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

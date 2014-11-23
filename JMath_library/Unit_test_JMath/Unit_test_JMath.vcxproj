@@ -46,6 +46,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)..\..\GoogleTest\include\;$(SolutionDir)..\..\GoogleTest\;$(SolutionDir)JMath_static\source\;$(SolutionDir)JMath_static\include\;$(SolutionDir)Unit_test_JMath\include\;$(ProjectDir)include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
