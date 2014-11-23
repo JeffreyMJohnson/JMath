@@ -60,11 +60,6 @@ Matrix3::~Matrix3()
 
 float* Matrix3::operator[](int rhs)
 {
-	float t[]{
-		matrix[rhs][0],
-			matrix[rhs][1],
-			matrix[rhs][2]};
-
 	return matrix[rhs];
 }
 
@@ -141,7 +136,7 @@ do the matrix math and then returns a Vector2 with the calculated x,y values.
 Vector2 Matrix3::Transform(const Vector2& v)
 {
 	Vector2 result;
-	//create implicit Vector4 to do the math
+	//create implicit Vector3 to do the math
 	Vector3 p(v.x, v.y, 1);
 
 	Vector3 row = Matrix3::GetVector3(ROW, 0, *this);

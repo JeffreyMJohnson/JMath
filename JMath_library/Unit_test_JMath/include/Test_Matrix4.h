@@ -597,4 +597,193 @@ TEST(matrix4, additionOperator)
 		0, 0, 2, 1));
 }
 
+TEST(matrix4, setupRotation)
+{
+	Matrix4 m = Matrix4::SetupRotation(X, JMath::DegreeToRadians(0));
+	Matrix4 expected(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+
+	EXPECT_EQ(expected, m);
+
+	m = Matrix4::SetupRotation(Y, JMath::DegreeToRadians(0));
+	expected = Matrix4(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+
+	EXPECT_EQ(expected, m);
+
+	m = Matrix4::SetupRotation(Z, JMath::DegreeToRadians(0));
+	expected = Matrix4(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+
+	EXPECT_EQ(expected, m);
+
+	float rads = JMath::DegreeToRadians(90);
+	m = Matrix4::SetupRotation(X, rads);
+	expected = Matrix4(
+		1, 0, 0, 0,
+		0, cos(rads), -sin(rads), 0,
+		0, sin(rads), cos(rads), 0,
+		0, 0, 0, 1);
+	EXPECT_EQ(expected, m);
+
+	m = Matrix4::SetupRotation(Y, rads);
+	expected = Matrix4(
+		cos(rads), 0, sin(rads), 0,
+		0, 1, 0, 0,
+		-sin(rads), 0, cos(rads), 0,
+		0, 0, 0, 1);
+	EXPECT_EQ(expected, m);
+
+	m = Matrix4::SetupRotation(Z, rads);
+	expected = Matrix4(
+		cos(rads), -sin(rads), 0, 0,
+		sin(rads), cos(rads), 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+	EXPECT_EQ(expected, m);
+
+	rads = JMath::DegreeToRadians(-90);
+	m = Matrix4::SetupRotation(X, rads);
+	expected = Matrix4(
+		1, 0, 0, 0,
+		0, cos(rads), -sin(rads), 0,
+		0, sin(rads), cos(rads), 0,
+		0, 0, 0, 1);
+	EXPECT_EQ(expected, m);
+}
+
+TEST(matrix4, setupScale)
+{
+	Matrix4 m = Matrix4::SetupScale(Vector3(5, 10, 2));
+	Matrix4 expect(
+		5, 0, 0, 0,
+		0, 10, 0, 0,
+		0, 0, 2, 0,
+		0, 0, 0, 1);
+	EXPECT_EQ(expect, m);
+
+	m = Matrix4::SetupScale(Vector3(.25, .5, .2));
+	expect = Matrix4(
+		.25, 0, 0, 0,
+		0, .50, 0, 0,
+		0, 0, .2, 0,
+		0, 0, 0, 1);
+	EXPECT_EQ(expect, m);
+}
+
+TEST(matrix4, setupTranslation)
+{
+	Matrix4 m = Matrix4::SetupTranslation(Vector3(2, 5, -2));
+	Matrix4 expect(
+		1, 0, 0, 2,
+		0, 1, 0, 5,
+		0, 0, 1, -2,
+		0, 0, 0, 1);
+	EXPECT_EQ(expect, m);
+
+	m = Matrix4::SetupTranslation(Vector3(5, -1, 43));
+	expect = Matrix4(
+		1, 0, 0, 5,
+		0, 1, 0, -1,
+		0, 0, 1, 43,
+		0, 0, 0, 1);
+	EXPECT_EQ(expect, m);
+}
+
+TEST(matrix4, bracketOperator)
+{
+	Matrix4 m(
+		1, 2, 3, 4,
+		4, 5, 6, 5,
+		7, 8, 9, 6,
+		7, 8, 9, 10);
+
+	float* v = m[2];
+	float f = v[2];
+
+	EXPECT_EQ(9, f);
+
+	f = m[3][2];
+	EXPECT_EQ(9, f);
+}
+
+TEST(matrix4, transpose)
+{
+	Matrix4 m(
+		1, 5, 6, 7,
+		2, 7, 8, 6,
+		2, 7, 5, -2,
+		23, 4, 3, 65);
+	Matrix4 expected(
+		1, 2, 2, 23,
+		5, 7, 7, 4,
+		6, 8, 5, 3,
+		7, 6, -2, 65);
+	m.Transpose();
+	EXPECT_EQ(expected, m);
+
+	m = Matrix4(
+		6, 4, 8, 12,
+		3, 1, 2, 21,
+		3, 9, 5, -76,
+		87, 7, 4, 0);
+	expected = Matrix4(
+		6, 3, 3, 87,
+		4, 1, 9, 7,
+		8, 2, 5, 4,
+		12, 21, -76, 0);
+	m.Transpose();
+
+	EXPECT_EQ(expected, m);
+}
+
+TEST(matrix4, getTranspose)
+{
+	Matrix4 m(
+		1, 5, 6, 7,
+		2, 7, 8, 6,
+		2, 7, 5, -2,
+		23, 4, 3, 65);
+	Matrix4 expected(
+		1, 2, 2, 23,
+		5, 7, 7, 4,
+		6, 8, 5, 3,
+		7, 6, -2, 65);
+	Matrix4 r = m.GetTranspose();
+	EXPECT_EQ(expected, r);
+	EXPECT_EQ(Matrix4(
+		1, 5, 6, 7,
+		2, 7, 8, 6,
+		2, 7, 5, -2,
+		23, 4, 3, 65), m);
+
+	m = Matrix4(
+		6, 4, 8, 12,
+		3, 1, 2, 21,
+		3, 9, 5, -76,
+		87, 7, 4, 0);
+	expected = Matrix4(
+		6, 3, 3, 87,
+		4, 1, 9, 7,
+		8, 2, 5, 4,
+		12, 21, -76, 0);
+	r = m.GetTranspose();
+
+	EXPECT_EQ(expected, r);
+	EXPECT_EQ(Matrix4(
+		6, 4, 8, 12,
+		3, 1, 2, 21,
+		3, 9, 5, -76,
+		87, 7, 4, 0), m);
+}
+
 #endif

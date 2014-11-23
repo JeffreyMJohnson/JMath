@@ -106,6 +106,60 @@ Matrix4 Matrix4::Identity()
 }
 
 /*
+returns new rotation matrix from given angle in radians around the given AXIS.   This assumes the use of a right-handed Cartesian coordinate system
+therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
+*/
+Matrix4 Matrix4::SetupRotation(AXIS axis, float radians)
+{
+	Matrix4 r = Matrix4::Identity();
+	switch (axis)
+	{
+	case X:
+		r.matrix[1][1] = cos(radians);
+		r.matrix[1][2] = -sin(radians);
+		r.matrix[2][1] = sin(radians);
+		r.matrix[2][2] = cos(radians);
+		return r;
+	case Y:
+		r.matrix[0][0] = cos(radians);
+		r.matrix[0][2] = sin(radians);
+		r.matrix[2][0] = -sin(radians);
+		r.matrix[2][2] = cos(radians);
+		return r;
+	case Z:
+		r.matrix[0][0] = cos(radians);
+		r.matrix[0][1] = -sin(radians);
+		r.matrix[1][0] = sin(radians);
+		r.matrix[1][1] = cos(radians);
+		return r;
+	}
+}
+
+/*
+returns new scale matrix
+*/
+Matrix4 Matrix4::SetupScale(const Vector3& scale)
+{
+	Matrix4 r = Matrix4::Identity();
+	r.matrix[0][0] = scale.x;
+	r.matrix[1][1] = scale.y;
+	r.matrix[2][2] = scale.z;
+	return r;
+}
+
+/*
+return new translation matrix
+*/
+Matrix4 Matrix4::SetupTranslation(Vector3& translation)
+{
+	Matrix4 r = Matrix4::Identity();
+	r.matrix[0][3] = translation.x;
+	r.matrix[1][3] = translation.y;
+	r.matrix[2][3] = translation.z;
+	return r;
+}
+
+/*
 Transforms the given Vector3 with this Matrix4 returning the Vector3 result.
 NOTE:this converts the given Vector3 to a Vector4 with the w parameter set to one to
 do the matrix math and then returns a Vector3 with the calculated x,y,z values.
@@ -124,6 +178,47 @@ Vector3 Matrix4::Transform(const Vector3& v)
 	result.z = row.DotProduct(r);
 	//don't use the fourth row anyway so don't bother calculating
 	return result;
+}
+
+/*
+transposes this matrix
+returns reference to this object to allow for operation chaining
+*/
+Matrix4& Matrix4::Transpose()
+{
+	Matrix4 m;
+	for (int row= 0; row < 4; row++)
+	{
+		//get the row'th col from this Matrix
+		Vector4 v = Matrix4::GetVector4(COL, row, *this);
+		//set temp matrix row'th row to the vector's values
+		m.matrix[row][0] = v.x;
+		m.matrix[row][1] = v.y;
+		m.matrix[row][2] = v.z;
+		m.matrix[row][3] = v.w;
+	}
+	*this = m;
+	//return reference to this so can chain operations
+	return *this;
+	
+}
+
+//returns a Matrix4 the transpose of this. This matrix does not change
+Matrix4 Matrix4::GetTranspose()
+{
+	Matrix4 m;
+	for (int row = 0; row < 4; row++)
+	{
+		//get the row'th col from this Matrix
+		Vector4 v = Matrix4::GetVector4(COL, row, *this);
+		//set temp matrix row'th row to the vector's values
+		m.matrix[row][0] = v.x;
+		m.matrix[row][1] = v.y;
+		m.matrix[row][2] = v.z;
+		m.matrix[row][3] = v.w;
+	}
+	
+	return m;
 }
 
 /*this static function returns a Vector3 representing the given index (zero based) row or column of the given matrix parameter depending
@@ -280,4 +375,9 @@ Matrix4& Matrix4::operator*=(const Matrix4& rhs)
 		}
 	}
 	return *this = result;
+}
+
+float* Matrix4::operator[](int index)
+{
+	return matrix[index];
 }

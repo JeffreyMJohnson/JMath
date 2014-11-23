@@ -8,6 +8,25 @@
 
 #define PI 3.14159
 
+/*
+Designates the list of data to extract from the grid i.e. horizontal or vertical.
+*/
+enum MATRIX_MAJOR
+{
+	ROW,
+	COL
+};
+
+/*
+Designates axis on Cartesion plane
+*/
+enum AXIS
+{
+	X,
+	Y,
+	Z
+};
+
 class JMath
 {
 public:
@@ -170,14 +189,7 @@ public:
 
 };
 
-/*
-Designates the list of data to extract from the grid i.e. horizontal or vertical.
-*/
-enum MATRIX_MAJOR
-{
-	ROW,
-	COL
-};
+
 
 //need to declare because of GetVector3() static function's use of Matrix3
 class Matrix3;
@@ -435,12 +447,6 @@ public:
 	//returns a matrix3 the transpose of this. This matrix does not change
 	Matrix3 GetTranspose();
 
-	/*
-	returns new vector the result of transforming the given vector with this matrix.
-	Both the given vector and this matrix remain unchanged.
-	*/
-	//Vector3 Transform(Vector3 v);
-
 	Matrix3& operator=(const Matrix3& rhs);
 
 	Matrix3 operator+(const Matrix3& rhs);
@@ -520,21 +526,21 @@ public:
 	*/
 	static Matrix4 Identity();
 
-	///*
-	//returns new rotation matrix from given angle in radians.   This assumes the use of a right-handed Cartesian coordinate system
-	//therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
-	//*/
-	//static Matrix4 SetupRotation(float radians);
+	/*
+	returns new rotation matrix from given angle in radians around the given AXIS.   This assumes the use of a right-handed Cartesian coordinate system
+	therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
+	*/
+	static Matrix4 SetupRotation(AXIS axis, float radians);
 
-	///*
-	//returns new scale matrix
-	//*/
-	//static Matrix4 SetupScale(const Vector2& scale);
+	/*
+	returns new scale matrix
+	*/
+	static Matrix4 SetupScale(const Vector3& scale);
 
-	///*
-	//return new translation matrix
-	//*/
-	//static Matrix4 SetupTranslation(Vector2& translation);
+	/*
+	return new translation matrix
+	*/
+	static Matrix4 SetupTranslation(Vector3& translation);
 
 	/*
 	Transforms the given Vector3 with this Matrix4 returning the Vector3 result.
@@ -556,11 +562,14 @@ public:
 	*/
 	static Vector4 GetVector4(MATRIX_MAJOR type, int index, const Matrix4& matrix);
 
-	////transposes this matrix
-	//Matrix4& Transpose();
+	/*
+	transposes this matrix
+	returns reference to this object to allow for operation chaining
+	*/
+	Matrix4& Transpose();
 
-	////returns a Matrix4 the transpose of this. This matrix does not change
-	//Matrix4 GetTranspose();
+	//returns a Matrix4 the transpose of this. This matrix does not change
+	Matrix4 GetTranspose();
 
 	Matrix4& operator=(const Matrix4& rhs);
 
@@ -572,7 +581,7 @@ public:
 	Matrix4& operator+=(const Matrix4& rhs);
 	Matrix4& operator-=(const Matrix4& rhs);
 	Matrix4& operator*=(const Matrix4& rhs);
-	/*float* operator[](int rhs);*/
+	float* operator[](int index);
 
 	friend bool operator==(const Matrix4& lhs, const Matrix4& rhs);
 	friend bool operator!=(const Matrix4& lhs, const Matrix4& rhs);

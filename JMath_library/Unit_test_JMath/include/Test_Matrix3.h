@@ -131,9 +131,12 @@ TEST(matrix3, bracketOperator)
 		1, 2, 3,
 		4, 5, 6,
 		7, 8, 9);
-	float v = *m[0];
+	float* v = m[0];
+	float f = v[2];
+	EXPECT_EQ(3, f);
 
-	EXPECT_TRUE(1 == v) << v;
+	f = m[1][1];
+	EXPECT_EQ(5, f);
 }
 
 TEST(matrix3, doubleBracketOperator)
