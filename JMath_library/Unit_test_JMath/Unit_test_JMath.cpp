@@ -1,7 +1,6 @@
 // unit_tests_retro_redux.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include <iostream>
 
 /*
@@ -17,7 +16,7 @@ header file defines public API for Google test, needs to be included for any tes
 #include "include\Test_Vector4.h"
 #include "include\Test_Matrix4.h"
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 	//method initializes Google framework and must be called BEFORE RUN_ALL_TESTS
 	::testing::InitGoogleTest(&argc, argv);
