@@ -106,6 +106,16 @@ Matrix4 Matrix4::Identity()
 }
 
 /*
+Returns 4X4 orthographic projection matrix
+*/
+Matrix4 Matrix4::OrthographicProjection()
+{
+	Matrix4 r = Matrix4::Identity();
+	r.matrix[2][2] = 0;
+	return r;
+}
+
+/*
 returns new rotation matrix from given angle in radians around the given AXIS.   This assumes the use of a right-handed Cartesian coordinate system
 therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
 */

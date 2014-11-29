@@ -91,6 +91,16 @@ Matrix3 Matrix3::Identity()
 }
 
 /*
+Returns 3X3 orthographic projection matrix
+*/
+Matrix3 Matrix3::OrthographicProjection()
+{
+	Matrix3 r = Matrix3::Identity();
+	r.matrix[2][2] = 0;
+	return r;
+}
+
+/*
 returns new rotation matrix from given angle in radians.   This assumes the use of a right-handed Cartesian coordinate system
 therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
 */

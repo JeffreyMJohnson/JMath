@@ -329,6 +329,17 @@ TEST(matrix4, identity)
 	EXPECT_EQ(expect, Matrix4::Identity());
 }
 
+TEST(matrix4, orthographicProjection)
+{
+	Matrix4 result = Matrix4::OrthographicProjection();
+	Matrix4 expect(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 1);
+	EXPECT_EQ(expect, result);
+}
+
 TEST(matrix4, transform)
 {
 	Matrix4 m(

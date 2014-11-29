@@ -417,6 +417,11 @@ public:
 	static Matrix3 Identity();
 
 	/*
+	Returns 3X3 orthographic projection matrix
+	*/
+	static Matrix3 OrthographicProjection();
+
+	/*
 	returns new rotation matrix from given angle in radians.   This assumes the use of a right-handed Cartesian coordinate system
 	therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
 	*/
@@ -526,6 +531,11 @@ public:
 	**********
 	*/
 	static Matrix4 Identity();
+
+	/*
+	Returns 4X4 orthographic projection matrix
+	*/
+	static Matrix4 OrthographicProjection();
 
 	/*
 	returns new rotation matrix from given angle in radians around the given AXIS.   This assumes the use of a right-handed Cartesian coordinate system

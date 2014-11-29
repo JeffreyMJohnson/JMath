@@ -256,6 +256,17 @@ TEST(matrix3, identity)
 	EXPECT_TRUE(expect == Matrix3::Identity());
 }
 
+TEST(matrix3, orthographicProjection)
+{
+	Matrix3 expect(
+		1, 0, 0,
+		0, 1, 0,
+		0, 0, 0);
+	Matrix3 result = Matrix3::OrthographicProjection();
+	EXPECT_EQ(expect, result);
+
+}
+
 TEST(matrix3, setupRotation)
 {
 	Matrix3 m = Matrix3::SetupRotation(JMath::DegreeToRadians(0));
