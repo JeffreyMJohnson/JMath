@@ -62,6 +62,32 @@ TEST(matrix4, copyConstructor)
 	EXPECT_FALSE(&m2 == &m) << "expect: " << &m2 << "result: " << &m;
 }
 
+TEST(matrix4, get)
+{
+	Matrix4 m(
+		1, 2, 3, 4,
+		5, 6, 7, 8,
+		9, 10, 11, 12,
+		13, 14, 15, 16);
+
+	float m2[16]{
+			1, 5, 9, 13,
+			2, 6, 10, 14,
+			3, 7, 11, 15,
+			4, 8, 12, 16
+	};
+
+	float m3[16];
+	m.Get(m3);
+
+	for (int i = 0; i < 16; i++)
+	{
+		EXPECT_FLOAT_EQ(m2[i], m3[i]);
+	}
+
+
+}
+
 TEST(matrix4, equality)
 {
 	Matrix4 m1(
@@ -332,7 +358,7 @@ TEST(matrix4, identity)
 TEST(matrix4, orthographicProjection)
 {
 	Matrix4 result = Matrix4::GetOrthographicProjection(0, 100, 100, 0, -10, 100);
-	
+
 	EXPECT_FLOAT_EQ(.02, result.matrix[0][0]);
 	EXPECT_FLOAT_EQ(0, result.matrix[0][1]);
 	EXPECT_FLOAT_EQ(0, result.matrix[0][2]);
@@ -343,8 +369,8 @@ TEST(matrix4, orthographicProjection)
 	EXPECT_FLOAT_EQ(-1, result.matrix[1][3]);
 	EXPECT_FLOAT_EQ(0, result.matrix[2][0]);
 	EXPECT_FLOAT_EQ(0, result.matrix[2][1]);
-	EXPECT_FLOAT_EQ(-2.0f/110, result.matrix[2][2]);
-	EXPECT_FLOAT_EQ(-90.0f/110.0f, result.matrix[2][3]);
+	EXPECT_FLOAT_EQ(-2.0f / 110, result.matrix[2][2]);
+	EXPECT_FLOAT_EQ(-90.0f / 110.0f, result.matrix[2][3]);
 	EXPECT_FLOAT_EQ(0, result.matrix[3][0]);
 	EXPECT_FLOAT_EQ(0, result.matrix[3][1]);
 	EXPECT_FLOAT_EQ(0, result.matrix[3][2]);

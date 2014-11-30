@@ -12,6 +12,7 @@ Matrix4::Matrix4()
 			matrix[row][col] = 0;
 		}
 	}
+	
 }
 
 /*
@@ -292,6 +293,20 @@ Vector4 Matrix4::GetVector4(MATRIX_MAJOR type, int index, const Matrix4& matrix)
 		w = matrix.matrix[3][index];
 	}
 	return Vector4(x, y, z, w);
+}
+
+/*
+Converts this data structure to structure useable by OpenGL
+*/
+void Matrix4::Get(float* a_matrix)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			a_matrix[i + (j * 4)] = matrix[i][j];
+		}
+	}
 }
 
 Matrix4& Matrix4::operator=(const Matrix4& rhs)

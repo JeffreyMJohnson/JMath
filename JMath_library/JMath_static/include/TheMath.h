@@ -593,6 +593,11 @@ public:
 	//returns a Matrix4 the transpose of this. This matrix does not change
 	Matrix4 GetTranspose();
 
+	/*
+	Converts this data structure to structure useable by OpenGL
+	*/
+	void Get(float* a_matrix);
+
 	Matrix4& operator=(const Matrix4& rhs);
 
 	friend Matrix4 operator+(const Matrix4& lhs, const Matrix4& rhs);
