@@ -535,7 +535,7 @@ public:
 	/*
 	Returns 4X4 orthographic projection matrix
 	*/
-	static Matrix4 OrthographicProjection();
+	static Matrix4 GetOrthographicProjection(const float left, const float right, const float top, const float bottom, const float near, const float far);
 
 	/*
 	returns new rotation matrix from given angle in radians around the given AXIS.   This assumes the use of a right-handed Cartesian coordinate system

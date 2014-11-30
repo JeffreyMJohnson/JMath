@@ -108,10 +108,15 @@ Matrix4 Matrix4::Identity()
 /*
 Returns 4X4 orthographic projection matrix
 */
-Matrix4 Matrix4::OrthographicProjection()
+Matrix4 Matrix4::GetOrthographicProjection(const float left, const float right, const float top, const float bottom, const float near, const float far)
 {
 	Matrix4 r = Matrix4::Identity();
-	r.matrix[2][2] = 0;
+	r.matrix[0][0] = 2.0f / (right - left);
+	r.matrix[0][3] = -1.0f * ((right + left) / (right - left));
+	r.matrix[1][1] = 2.0f / (top - bottom);
+	r.matrix[1][3] = -1.0f * ((top + bottom) / (top - bottom));
+	r.matrix[2][2] = -1.0f * (2 / (far - near));
+	r.matrix[2][3] = -1.0f * ((far + near) / (far - near));
 	return r;
 }
 

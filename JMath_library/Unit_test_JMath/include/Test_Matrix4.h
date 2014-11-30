@@ -331,13 +331,24 @@ TEST(matrix4, identity)
 
 TEST(matrix4, orthographicProjection)
 {
-	Matrix4 result = Matrix4::OrthographicProjection();
-	Matrix4 expect(
-		1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, 0, 0,
-		0, 0, 0, 1);
-	EXPECT_EQ(expect, result);
+	Matrix4 result = Matrix4::GetOrthographicProjection(0, 100, 100, 0, -10, 100);
+	
+	EXPECT_FLOAT_EQ(.02, result.matrix[0][0]);
+	EXPECT_FLOAT_EQ(0, result.matrix[0][1]);
+	EXPECT_FLOAT_EQ(0, result.matrix[0][2]);
+	EXPECT_FLOAT_EQ(-1, result.matrix[0][3]);
+	EXPECT_FLOAT_EQ(0, result.matrix[1][0]);
+	EXPECT_FLOAT_EQ(.02, result.matrix[1][1]);
+	EXPECT_FLOAT_EQ(0, result.matrix[1][2]);
+	EXPECT_FLOAT_EQ(-1, result.matrix[1][3]);
+	EXPECT_FLOAT_EQ(0, result.matrix[2][0]);
+	EXPECT_FLOAT_EQ(0, result.matrix[2][1]);
+	EXPECT_FLOAT_EQ(-2.0f/110, result.matrix[2][2]);
+	EXPECT_FLOAT_EQ(-90.0f/110.0f, result.matrix[2][3]);
+	EXPECT_FLOAT_EQ(0, result.matrix[3][0]);
+	EXPECT_FLOAT_EQ(0, result.matrix[3][1]);
+	EXPECT_FLOAT_EQ(0, result.matrix[3][2]);
+	EXPECT_FLOAT_EQ(1, result.matrix[3][3]);
 }
 
 TEST(matrix4, transform)
