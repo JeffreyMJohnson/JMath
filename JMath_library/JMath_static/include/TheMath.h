@@ -1,30 +1,19 @@
 
 #pragma once
-/*
-#ifdef THEPROJECT_USE_DLL
-#ifdef THEPROJECT_BUILDING_PROJECT
-#define THEPROJECT_API __declspec(dllexport)
-#else
-#define THEPROJECT_API __declspec(dllimport)
-#endif
-#else
-#define THEPROJECT_API
-#endif
-*/
-
 #ifdef MATH_LIBRARY_USE_DLL
-	#ifdef JMATH_DYNAMIC_EXPORTS
-	#define JMATH_API __declspec(dllexport)
-	#else
-	#define JMATH_API __declspec(dllimport)
-	#endif
+#ifdef JMATH_DYNAMIC_EXPORTS
+#define JMATH_API __declspec(dllexport)
 #else
-	#define JMATH_API
+#define JMATH_API __declspec(dllimport)
+#endif
+#else
+#define JMATH_API
 #endif
 
 
 #ifndef _THE_MATH_H_
 #define _THE_MATH_H_
+
 
 #include <math.h>
 #include <ostream>
