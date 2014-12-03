@@ -11,23 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0E0B3C60-18EA-45CD-BC90-655416D26533}</ProjectGuid>
-    <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Unit_test_JMath</RootNamespace>
+    <ProjectGuid>{AB8BF319-2C37-4274-89BD-3656D840A32E}</ProjectGuid>
+    <RootNamespace>Unit_test_JMath_DLL</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -40,27 +39,18 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(SolutionDir)Debug\;$(SolutionDir)..\..\GoogleTest\msvc\gtest-md\Debug\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\..\GoogleTest\include\;$(SolutionDir)..\..\GoogleTest\;$(SolutionDir)JMath_static\source\;$(SolutionDir)JMath_static\include\;$(SolutionDir)Unit_test_JMath\include\;$(ProjectDir)include\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\..\GoogleTest\include\;$(SolutionDir)..\..\GoogleTest\;$(SolutionDir)JMath_static\source\;$(SolutionDir)JMath_static\include\;$(SolutionDir)Unit_test_JMath\include\;$(ProjectDir)include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)JMath_static\include\;$(SolutionDir)Unit_test_Jmath\include\;$(SolutionDir)..\..\GoogleTest\;$(SolutionDir)..\..\GoogleTest\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\GoogleTest\msvc\gtest-md\Debug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>gtestd.lib;JMath_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>"$(TargetDir)$(TargetFileName)"</Command>
@@ -69,34 +59,33 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <ClCompile Include="..\Unit_test_JMath\source\Unit_test_JMath.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Test_JMath.h" />
-    <ClInclude Include="include\Test_Matrix3.h" />
-    <ClInclude Include="include\Test_Matrix4.h" />
-    <ClInclude Include="include\Test_Vector2.h" />
-    <ClInclude Include="include\Test_Vector3.h" />
-    <ClInclude Include="include\Test_Vector4.h" />
+    <ClInclude Include="..\JMath_static\include\TheMath.h" />
+    <ClInclude Include="..\Unit_test_JMath\include\Test_JMath.h" />
+    <ClInclude Include="..\Unit_test_JMath\include\Test_Matrix3.h" />
+    <ClInclude Include="..\Unit_test_JMath\include\Test_Matrix4.h" />
+    <ClInclude Include="..\Unit_test_JMath\include\Test_Vector2.h" />
+    <ClInclude Include="..\Unit_test_JMath\include\Test_Vector3.h" />
+    <ClInclude Include="..\Unit_test_JMath\include\Test_Vector4.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Unit_test_JMath.cpp" />
+    <ProjectReference Include="..\JMath_dynamic\JMath_dynamic.vcxproj">
+      <Project>{501b86ec-f53e-48eb-a6e5-392bb3ad4bc8}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
