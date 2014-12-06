@@ -192,6 +192,15 @@ TEST(vector3, bangOperator)
 	EXPECT_TRUE(!v2) << v;
 }
 
+TEST(vector3, equals)
+{
+	Vector3 v1(.0009, -.0009, .0009);
+	Vector3 v2;
+
+	EXPECT_TRUE(v1.Equals(v2, .001));
+	EXPECT_FALSE(v1.Equals(v2, .0001));
+}
+
 TEST(vector3, magnitude)
 {
 	Vector3 v1(3, 4, 5);

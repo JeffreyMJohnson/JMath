@@ -166,6 +166,15 @@ std::ostream& operator<<(std::ostream& out, const Vector3& v)
 	return out;
 }
 
+/*
+Returns true if both x and y values of called Vector3 and given Vector3's are within delta of value else returns false.
+(i.e. return abs(this.x - rhs.x) <= delta && abs(this.y - rhs.y) <= delta);
+*/
+bool Vector3::Equals(const Vector3& rhs, const float delta)
+{
+	return ((abs(this->x - rhs.x) <= delta) && (abs(this->y - rhs.y) <= delta) && (abs(this->z - rhs.z) <= delta));
+}
+
 //vector math functions
 /*
 returns magnitude of this vector

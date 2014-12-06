@@ -185,6 +185,15 @@ TEST(vector2, multiplyAssignmentOperator)
 	EXPECT_TRUE(v1 == Vector2(50, 50)) << "verify product applied";
 }
 
+TEST(vector2, equals)
+{
+	Vector2 v1(.0009, -.0009);
+	Vector2 v2;
+
+	EXPECT_TRUE(v1.Equals(v2, .001));
+	EXPECT_FALSE(v1.Equals(v2, .0001));
+}
+
 TEST(vector2, magnitude)
 {
 	Vector2 v1(3, 4);

@@ -163,6 +163,12 @@ public:
 
 	JMATH_API friend std::ostream& operator<<(std::ostream& out, const Vector2& v);
 
+	/*
+	Returns true if both x and y values of called Vector2 and given Vector2's are within delta of value else returns false.
+	(i.e. return abs(this.x - rhs.x) <= delta && abs(this.y - rhs.y) <= delta);
+	*/
+	JMATH_API bool Equals(const Vector2& rhs, const float delta);
+
 	//vector math functions
 	/*
 	returns magnitude of this vector
@@ -256,6 +262,12 @@ public:
 	JMATH_API float operator[](int rhs);
 
 	friend JMATH_API std::ostream& operator<<(std::ostream& out, const Vector3& v);
+
+	/*
+	Returns true if both x and y values of called Vector3 and given Vector3's are within delta of value else returns false.
+	(i.e. return abs(this.x - rhs.x) <= delta && abs(this.y - rhs.y) <= delta);
+	*/
+	JMATH_API bool Equals(const Vector3& rhs, const float delta);
 
 	//vector math functions
 	/*
