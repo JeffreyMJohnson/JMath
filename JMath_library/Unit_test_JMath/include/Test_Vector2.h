@@ -94,7 +94,7 @@ TEST(vector2, additionOperator)
 	v3 = v1 + v1 + v2;
 	EXPECT_TRUE(v1 == Vector2(10, 10)) << "verify unchanged";
 	EXPECT_TRUE(v2 == Vector2(5, 5)) << "verify unchanged";
-	EXPECT_TRUE(v3 == Vector2(25,25)) << "verify addition returned";
+	EXPECT_TRUE(v3 == Vector2(25, 25)) << "verify addition returned";
 }
 
 TEST(vector2, additionAssignmentOperator)
@@ -127,7 +127,7 @@ TEST(vector2, subtractOperator)
 	v3 = v1 - v2 - v2;
 	EXPECT_TRUE(v1 == Vector2(10, 10)) << v1 << "verify unchanged";
 	EXPECT_TRUE(v2 == Vector2(5, 5)) << v2 << "verify unchanged";
-	EXPECT_TRUE(v3 == Vector2(0,0)) << v3 << "verify subtract returned";
+	EXPECT_TRUE(v3 == Vector2(0, 0)) << v3 << "verify subtract returned";
 
 }
 
@@ -228,7 +228,7 @@ TEST(vector2, getNormal)
 
 	//divide by zero check
 	v = Vector2();
-	v2 = v.GetNormal() = Vector2(); 
+	v2 = v.GetNormal() = Vector2();
 	EXPECT_TRUE(Vector2() == v2) << v2;
 }
 
@@ -271,6 +271,15 @@ TEST(vector2, getLERP)
 	result = start.GetLERP(end, percent);
 	EXPECT_TRUE(Vector2(2.5, 2.5) == result);
 
+}
+
+TEST(vector2, getQuadBezier)
+{
+	Vector2 start(1, 1);
+	Vector2 mid(1.5, 4.5);
+	Vector2 end(4, 2);
+	Vector2 r = start.GetQuadBezier(mid, end, .5f);
+	EXPECT_EQ(Vector2(2, 3), r);
 }
 
 TEST(vector2, lerp_static)

@@ -208,12 +208,20 @@ Vector2 Vector2::GetPerp()
 Returns new vector linear interpolated the given percent of the given vectors
 i.e. (start + percent * (end - start))
 */
-Vector2 Vector2::GetLERP(const Vector2& end, float const percent)
+Vector2 Vector2::GetLERP(const Vector2& end, const float percent)
 {
 	Vector2 start = *this;
 	Vector2 norm = end - start;
 
 	return (*this + (end - *this) * percent);
+}
+
+Vector2 Vector2::GetQuadBezier(Vector2& mid, Vector2& end, float percent)
+{
+	Vector2 mid1 = Vector2::LERP(*this, mid, percent);
+	Vector2 mid2 = Vector2::LERP(mid, end, percent);
+
+	return Vector2::LERP(mid1, mid2, percent);
 }
 
 /*

@@ -197,7 +197,9 @@ public:
 	Returns new vector linear interpolated the given percent of the given vectors
 	i.e. (start + percent * (end - start))
 	*/
-	JMATH_API Vector2 GetLERP(const Vector2& end, float const percent);
+	JMATH_API Vector2 GetLERP(const Vector2& end, const float percent);
+
+	JMATH_API Vector2 GetQuadBezier(Vector2& mid, Vector2& end, float percent);
 
 	/*
 	Returns new vector linear interpolated the given percent of the given vectors
