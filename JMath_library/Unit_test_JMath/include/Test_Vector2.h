@@ -334,6 +334,8 @@ TEST(vector2, cub_bezier_static)
 	Vector2 r = Vector2::CubicBezier(p0, p1, p2, p3, t);
 	EXPECT_EQ(expected, r);
 
+	r = Vector2::CubicBezier(p0, p1, p2, p3, 1.0f);
+	EXPECT_EQ(Vector2(20, 1), r);
 
 }
 #endif
