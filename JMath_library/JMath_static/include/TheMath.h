@@ -207,6 +207,10 @@ public:
 	*/
 	static JMATH_API Vector2 LERP(const Vector2& start, const Vector2& end, float percent);
 
+	static JMATH_API Vector2 QuadBezier(const Vector2& a, const Vector2& b, const Vector2& c, float t);
+
+	static JMATH_API Vector2 CubicBezier(const Vector2& p0, const Vector2& p1, Vector2& p2, Vector2& p3, float t);
+
 };
 
 

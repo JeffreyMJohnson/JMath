@@ -300,5 +300,40 @@ TEST(vector2, lerp_static)
 	EXPECT_TRUE(Vector2(2.5, 2.5) == result) << "result " << result;
 }
 
+TEST(vector2, q_bez_static)
+{
+	Vector2 start(1, 1);
+	Vector2 mid(1.5, 4.5);
+	Vector2 end(4, 2);
+	Vector2 r = Vector2::QuadBezier(start, mid, end, .5f);
+	EXPECT_EQ(Vector2(2, 3), r);
 
+}
+
+TEST(vector2, cub_bezier_static)
+{
+	Vector2 p0;
+	Vector2 p1(3, 5);
+	Vector2 p2(7, 4);
+	Vector2 p3(20, 1);
+	float t = .5f;
+
+	//Vector2 l0 = Vector2::LERP(p0, p1, t);
+	//Vector2 l1 = Vector2::LERP(p1, p2, t);
+	//Vector2 l2 = Vector2::LERP(p2, p3, t);
+	//EXPECT_TRUE(false) << "l0: " << l0 << "\nl1: " << l1 << "\nl2: " << l2 << "\n";
+
+	//Vector2 l3 = Vector2::LERP(l0, l1, t);
+	//Vector2 l4 = Vector2::LERP(l1, l2, t);
+	//EXPECT_TRUE(false) << "l3: " << l3 << "\nl4: " << l4 << "\n";
+
+	//Vector2 l5 = Vector2::LERP(l3, l4, t);
+	//EXPECT_TRUE(false) << "l5: " << l5 << "\n";
+
+	Vector2 expected(6.25, 3.5);
+	Vector2 r = Vector2::CubicBezier(p0, p1, p2, p3, t);
+	EXPECT_EQ(expected, r);
+
+
+}
 #endif

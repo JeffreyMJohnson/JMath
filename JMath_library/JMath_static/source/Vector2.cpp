@@ -118,7 +118,7 @@ bool operator==(const Vector2& lhs, const Vector2& rhs)
 {
 	if (&lhs == &rhs)
 		return true;
-if (lhs.x == rhs.x && lhs.y == rhs.y)
+	if (lhs.x == rhs.x && lhs.y == rhs.y)
 		return true;
 	return false;
 }
@@ -231,4 +231,24 @@ i.e. (start + percent * (end - start))
 Vector2 Vector2::LERP(const Vector2& start, const Vector2& end, float percent)
 {
 	return (start + (end - start) * percent);
+}
+
+Vector2 Vector2::QuadBezier(const Vector2& a, const Vector2& b, const Vector2& c, float t)
+{
+	Vector2 mid1 = Vector2::LERP(a, b, t);
+	Vector2 mid2 = Vector2::LERP(b, c, t);
+
+	return Vector2::LERP(mid1, mid2, t);
+}
+
+Vector2 Vector2::CubicBezier(const Vector2& p0, const Vector2& p1, Vector2& p2, Vector2& p3, float t)
+{
+	Vector2 mid0 = Vector2::LERP(p0, p1, t);
+	Vector2 mid1 = Vector2::LERP(p1, p2, t);
+	Vector2 mid2 = Vector2::LERP(p2, p3, t);
+
+	Vector2 mid3 = Vector2::LERP(mid0, mid1, t);
+	Vector2 mid4 = Vector2::LERP(mid1, mid2, t);
+
+	return Vector2::LERP(mid3, mid4, t);
 }
