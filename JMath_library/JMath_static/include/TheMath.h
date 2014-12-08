@@ -145,6 +145,8 @@ public:
 	JMATH_API bool operator!();
 
 	JMATH_API Vector2 operator*(const float scalar);
+	JMATH_API friend Vector2 operator*(const Vector2& lhs, const float scalar);
+	JMATH_API friend Vector2 operator*(const float scalar, const Vector2& rhs);
 	JMATH_API void operator*=(const float scalar);
 
 	/*
@@ -210,6 +212,8 @@ public:
 	static JMATH_API Vector2 QuadBezier(const Vector2& a, const Vector2& b, const Vector2& c, float t);
 
 	static JMATH_API Vector2 CubicBezier(const Vector2& p0, const Vector2& p1, Vector2& p2, Vector2& p3, float t);
+
+	static JMATH_API Vector2 HermiteSpline(const Vector2& point0, const Vector2& point1, const Vector2& tangent0, const Vector2& tangent2, const float t);
 
 };
 

@@ -88,10 +88,18 @@ Vector2 Vector2::operator*(const float scalar)
 	return Vector2(x * scalar, y * scalar);
 }
 
-//Vector2 operator*(const float scalar, const Vector2& vector)
-//{
-//	return scalar * vector;
-//}
+Vector2 operator*(const Vector2& lhs, const float scalar)
+{
+	Vector2 r = lhs;
+	r.x *= scalar;
+	r.y *= scalar;
+	return r;
+}
+
+Vector2 operator*(const float scalar, const Vector2& rhs)
+{
+	return rhs * scalar;
+}
 
 void Vector2::operator*=(const float scalar)
 {
@@ -251,4 +259,18 @@ Vector2 Vector2::CubicBezier(const Vector2& p0, const Vector2& p1, Vector2& p2, 
 	Vector2 mid4 = Vector2::LERP(mid1, mid2, t);
 
 	return Vector2::LERP(mid3, mid4, t);
+}
+
+Vector2 Vector2::HermiteSpline(const Vector2& point0, const Vector2& point1, const Vector2& tangent0, const Vector2& tangent1, const float t)
+{
+	float tsq = t * t;
+	float tcub = tsq * t;
+
+	float h00 = 2 * tcub - 3 * tsq + 1;
+	float h01 = -2 * tcub + 3 * tsq;
+	float h10 = tcub - 2 * tsq + t;
+	float h11 = tcub - tsq;
+
+	Vector2 r = h00 * point0 + h10 * tangent0 + h01 * point1 + h11 * tangent1;
+	return r;
 }

@@ -174,6 +174,10 @@ TEST(vector2, multiplyOperator)
 	EXPECT_TRUE(v1 == Vector2(10, 10)) << "verify unchanged";
 	EXPECT_FLOAT_EQ(5.0f, scalar) << "verify unchanged";
 	EXPECT_TRUE(v2 == Vector2(50, 50)) << "verify product returned";
+
+	v1 = Vector2(5, 5);
+	v2 = scalar * v1;
+	EXPECT_EQ(Vector2(25, 25), v2);
 }
 
 TEST(vector2, multiplyAssignmentOperator)
