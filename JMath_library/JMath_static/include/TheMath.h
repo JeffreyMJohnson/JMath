@@ -20,7 +20,7 @@
 
 #define PI 3.14159
 
-/*
+/**
 Designates the list of data to extract from the grid i.e. horizontal or vertical.
 */
 enum MATRIX_MAJOR
@@ -29,7 +29,7 @@ enum MATRIX_MAJOR
 	COL
 };
 
-/*
+/**
 Designates axis on Cartesion plane
 */
 enum AXIS
@@ -39,10 +39,13 @@ enum AXIS
 	Z
 };
 
+/**
+Misc helper functions
+*/
 JMATH_API class JMath
 {
 public:
-	/*
+	/**
 	returns the given angle in degrees converted to radians
 	*/
 	static JMATH_API float DegreeToRadians(float angleInDegrees)
@@ -50,7 +53,7 @@ public:
 		return angleInDegrees * (PI / 180);
 	}
 
-	/*
+	/**
 	returns given angle in radians converted to degrees
 	*/
 	static JMATH_API float RadiansToDegrees(float angleInRadians)
@@ -58,7 +61,7 @@ public:
 		return angleInRadians * (180 / PI);
 	}
 
-	/*
+	/**
 	returns true if given result is within delta of expected result using
 	formula: (fabs(result - expected) < delta)
 	*/
@@ -67,7 +70,7 @@ public:
 		return (fabs(result - expected) < delta);
 	}
 
-	/*
+	/**
 	return float representing linear interpolation of given percentage between 2 given scalar values.
 	NOTE: expect given percent to be value between 0 and 1;
 	*/
@@ -76,7 +79,7 @@ public:
 		return (begin + (end - begin) * percent);
 	}
 
-	/*
+	/**
 	return true if given unsigned integer is a power of two else returns false
 	*/
 	static JMATH_API bool IsPowerOfTwo(const unsigned int num)
@@ -92,7 +95,7 @@ public:
 		return (n == 1);
 	}
 
-	/*
+	/**
 	Return the next highest power of 2 of the given 32-bit value if the value is not a power of 2.  Otherwise, will return the value.
 	*/
 	static JMATH_API unsigned int GetNextPowerOfTwo(const unsigned int value)
@@ -117,16 +120,35 @@ public:
 	}
 };
 
+/**
+Representation of a 2 dimensional vector
+e.g. (x,y)
+*/
 JMATH_API class Vector2
 {
 public:
+	///(constructor)
+	/**
+	Construct Vector2.
+	*/
 	JMATH_API Vector2();
+
+	///(constructor)
+	/**
+	Construct Vector2 with x and y set to given parameters.
+	*/
 	JMATH_API Vector2(float a_x, float a_y);
+
+	///(constructor)
+	/*
+	Construct Vector2 that is a copy of given parameter.
+	*/
 	JMATH_API Vector2(const Vector2& other);
 
+	///(destructor)
 	JMATH_API ~Vector2();
 
-	float x, y;
+	float x, y;	///member variables
 
 	//operator overloads
 	JMATH_API Vector2& operator=(const Vector2& rhs);
@@ -165,37 +187,37 @@ public:
 
 	JMATH_API friend std::ostream& operator<<(std::ostream& out, const Vector2& v);
 
-	/*
+	/**
 	Returns true if both x and y values of called Vector2 and given Vector2's are within delta of value else returns false.
 	(i.e. return abs(this.x - rhs.x) <= delta && abs(this.y - rhs.y) <= delta);
 	*/
 	JMATH_API bool Equals(const Vector2& rhs, const float delta);
 
 	//vector math functions
-	/*
+	/**
 	returns magnitude of this vector
 	*/
 	JMATH_API float Magnitude();
 
-	/*
+	/**
 	normalize this Vector2
 	*/
 	JMATH_API void Normalize();
 
-	/*
+	/**
 	return normalized Vector2 from values of this one. This vector is not changed.
 	*/
 	JMATH_API Vector2 GetNormal();
 
-	/*
+	/**
 	return dot product of this vector and given other vector
 	*/
 	JMATH_API float DotProduct(const Vector2& other);
 
-	//return Vector2 perpendicular to this one
+	///return Vector2 perpendicular to this one
 	JMATH_API Vector2 GetPerp();
 
-	/*
+	/**
 	Returns new vector linear interpolated the given percent of the given vectors
 	i.e. (start + percent * (end - start))
 	*/
@@ -209,10 +231,20 @@ public:
 	*/
 	static JMATH_API Vector2 LERP(const Vector2& start, const Vector2& end, float percent);
 
+
+	/**
+	Returns a position along Bezier curve calculated from given 3 Vector2 and a given t value.
+	*/
 	static JMATH_API Vector2 QuadBezier(const Vector2& a, const Vector2& b, const Vector2& c, float t);
 
+	/**
+	Returns a position along Bezier curve calculated from given 4 Vector2 and a given t value.
+	*/
 	static JMATH_API Vector2 CubicBezier(const Vector2& p0, const Vector2& p1, Vector2& p2, Vector2& p3, float t);
 
+	/**
+	Returns a position along Bezier curve calculated from given 3 Vector2 and a given t value.
+	*/
 	static JMATH_API Vector2 HermiteSpline(const Vector2& point0, const Vector2& point1, const Vector2& tangent0, const Vector2& tangent2, const float t);
 
 };
@@ -222,12 +254,32 @@ public:
 //need to declare because of GetVector3() static function's use of Matrix3
 JMATH_API class Matrix3;
 
+/**
+Representation of a 3 dimensional vector
+e.g. (x,y,z)
+*/
 class Vector3
 {
 public:
+	///(constructor)
+	/**
+	Construct Vector3.
+	*/
 	JMATH_API Vector3();
+
+	///(constructor)
+	/**
+	Construct Vector3 with x, y and z set to given parameters.
+	*/
 	JMATH_API Vector3(float a_x, float a_y, float a_z);
+
+	///(constructor)
+	/*
+	Construct Vector3 that is a copy of given parameter.
+	*/
 	JMATH_API Vector3(const Vector3& other);
+
+	///(destructor)
 	JMATH_API ~Vector3();
 
 	float x, y, z;
@@ -247,7 +299,7 @@ public:
 	JMATH_API Vector3 operator-();
 
 	/*
-	returns true if Vector not zero (Vector3 (0,0,0)) else returns false;
+	Returns true if Vector not zero (Vector3 (0,0,0)) else returns false;
 	*/
 	JMATH_API bool operator!();
 	/*
@@ -264,7 +316,7 @@ public:
 
 	friend JMATH_API bool operator!=(const Vector3& lhs, const Vector3& rhs);
 
-	/*
+	/**
 	returns value of vector subelement at position of given int
 	i.e. myVector3[0] = will return x element, myVector[1] will return y and myVector[2] will return z
 	EXPECT given int to be greater than or equal to zero AND less than 3.
@@ -273,46 +325,46 @@ public:
 
 	friend JMATH_API std::ostream& operator<<(std::ostream& out, const Vector3& v);
 
-	/*
+	/**
 	Returns true if both x and y values of called Vector3 and given Vector3's are within delta of value else returns false.
 	(i.e. return abs(this.x - rhs.x) <= delta && abs(this.y - rhs.y) <= delta);
 	*/
 	JMATH_API bool Equals(const Vector3& rhs, const float delta);
 
 	//vector math functions
-	/*
+	/**
 	returns magnitude of this vector
 	*/
 	JMATH_API float Magnitude();
 
-	/*
+	/**
 	normalize this Vector3
 	*/
 	JMATH_API void Normalize();
 
-	/*
+	/**
 	return normalized Vector3 from values of this one. This vector is not changed.
 	*/
 	JMATH_API Vector3 GetNormal();
 
-	/*
+	/**
 	return dot product of this vector and given other vector
 	*/
 	JMATH_API float DotProduct(const Vector3& other);
 
-	/*
+	/**
 	return Vector3 cross product
 	neither this or the given other vector are changed
 	*/
 	JMATH_API Vector3 CrossProduct(const Vector3& other);
 
-	/*
+	/**
 	Returns new vector linear interpolated the given percent of the given vectors
 	i.e. (start + percent * (end - start))
 	*/
 	JMATH_API Vector3 GetLERP(const Vector3& end, float const percent);
 
-	/*
+	/**
 	Returns new vector linear interpolated the given percent of the given vectors
 	i.e. (start + percent * (end - start))
 	*/
@@ -320,26 +372,39 @@ public:
 
 };
 
+
+/**
+Representation of a 4 dimensional vector
+e.g. (x,y,z,w)
+*/
 JMATH_API class Vector4
 {
 public:
+	///(constructor)
+	/**
+	Construct Vector4.
+	*/
 	JMATH_API Vector4();
 
+	///(constructor)
+	/**
+	Construct Vector3 with x, y and z set to given parameters.
+	*/
 	JMATH_API Vector4(const float a_x, const float a_y, const float a_z, const float a_w);
 
-	/*
+	/**
 	construct and return a Vector4 from given hex number with values x for the red value, y for the
 	green value, z for the blue value and W for the alpha value.  The values will be from 0 to 255.
 	assume hex number is from 0x00000000 to 0xFFFFFFFF
 	*/
 	JMATH_API Vector4(const unsigned int a_hex);
 
-	/*
+	/**
 	construct and return Vector4 as a copy of given Vector4. Note given Vector4 is unchanged during operation.
 	*/
 	JMATH_API Vector4(const Vector4& other);
 
-	/*
+	/**
 	construct and return a Vector4 from given hex number with values x for the red value, y for the
 	green value, z for the blue value and W for the alpha value.  The values will be from 0 to 255.
 	assume hex number is from 0x00000000 to 0xFFFFFFFF
@@ -375,23 +440,23 @@ public:
 	JMATH_API bool operator!=(const Vector4& rhs);
 	friend JMATH_API bool operator!=(const Vector4& lhs, const Vector4& rhs);
 
-	/*
+	/**
 	returns the magnitude of this Vector4
 	*/
 	JMATH_API float Magnitude();
 
-	/*
+	/**
 	return a new Vector4 of this Vectr4 normalized
 	*/
 	JMATH_API Vector4 GetNormalized();
 
-	/*
+	/**
 	returns true if this Vector4 able to be normalized, and will normalize this object else returns false and leaves this unchanged (i.e. magnitude of this vector
 	is zero)
 	*/
 	JMATH_API bool Normalize();
 
-	/*
+	/**
 	return dot product of this vector and given other vector
 	*/
 	JMATH_API float DotProduct(const Vector4& other);
@@ -401,7 +466,7 @@ public:
 	float x, y, z, w;
 };
 
-/*
+/**
 Representation of a 3X3 matrix
 NOTE: All operations assume column major layout
 */
@@ -409,12 +474,12 @@ JMATH_API class Matrix3
 {
 public:
 
-	/*
+	/**
 	Constructs a matrix filled with zeros.
 	*/
 	JMATH_API Matrix3();
 
-	/*
+	/**
 	The data parameters assume a column major matrix starting in the upper left-hand corner
 	and going left to right, top to bottom.
 	E.g.
@@ -436,10 +501,13 @@ public:
 		const float m21,
 		const float m22);
 
+	///copy constructor
 	JMATH_API Matrix3(Matrix3& rhs);
+	
+	///(destructor)
 	JMATH_API ~Matrix3();
 
-	/*
+	/**
 	Returns identity matrix
 	e.g.
 	*******
@@ -450,30 +518,30 @@ public:
 	*/
 	static JMATH_API Matrix3 Identity();
 
-	/*
+	/**
 	Returns 3X3 orthographic projection matrix
 	*/
 	static JMATH_API Matrix3 OrthographicProjection();
 
-	/*
+	/**
 	returns new rotation matrix from given angle in radians.   This assumes the use of a right-handed Cartesian coordinate system
 	therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
 	*/
 	static JMATH_API Matrix3 SetupRotation(float radians);
 
-	/*
+	/**
 	returns new scale matrix
 	*/
 	static JMATH_API Matrix3 SetupScale(const Vector2& scale);
 
-	/*
+	/**
 	return new translation matrix
 	*/
 	static JMATH_API Matrix3 SetupTranslation(Vector2& translation);
 
 	static JMATH_API Vector3 GetVector3(MATRIX_MAJOR type, int index, const Matrix3& matrix);
 
-	/*
+	/**
 	Transforms the given Vector2 with this Matrix3 returning the Vector2 result.
 	NOTE:this converts the given Vector2 to a Vector3 with the z parameter set to one to
 	do the matrix math and then returns a Vector2 with the calculated x,y values.
@@ -508,7 +576,7 @@ public:
 	float matrix[3][3];
 };
 
-/*
+/**
 Representation of a 4X4 matrix
 NOTE: All operations assume column major layout
 */
@@ -516,12 +584,12 @@ JMATH_API class Matrix4
 {
 public:
 
-	/*
+	/**
 	Constructs a matrix filled with zeros.
 	*/
 	JMATH_API Matrix4();
 
-	/*
+	/**
 	The data parameters assume a column major matrix starting in the upper left-hand corner
 	and going left to right, top to bottom.
 	E.g.
@@ -554,7 +622,7 @@ public:
 	JMATH_API Matrix4(Matrix4& rhs);
 	JMATH_API ~Matrix4();
 
-	/*
+	/**
 	Returns identity matrix
 	e.g.
 	**********
@@ -566,46 +634,46 @@ public:
 	*/
 	static JMATH_API Matrix4 Identity();
 
-	/*
+	/**
 	Returns 4X4 orthographic projection matrix
 	*/
 	static JMATH_API Matrix4 GetOrthographicProjection(const float left, const float right, const float top, const float bottom, const float near, const float far);
 
-	/*
+	/**
 	returns new rotation matrix from given angle in radians around the given AXIS.   This assumes the use of a right-handed Cartesian coordinate system
 	therefore an angle value greater than 0 rotates counterclockwise, and an angle less than 0 rotates clockwise.
 	*/
 	static JMATH_API Matrix4 SetupRotation(AXIS axis, float radians);
 
-	/*
+	/**
 	returns new rotation matrix consisting of products of rotation matrix of given angle around each
 	axis x,y and z.
 	*/
 	static JMATH_API Matrix4 SetupRotation(float radians);
 
-	/*
+	/**
 	returns new rotation matrix from Vector3 of angles to rotate around each axis
 	*/
 	static JMATH_API Matrix4 SetupRotation(const Vector3& angles);
 
-	/*
+	/**
 	returns new scale matrix
 	*/
 	static JMATH_API Matrix4 SetupScale(const Vector3& scale);
 
-	/*
+	/**
 	return new translation matrix
 	*/
 	static JMATH_API Matrix4 SetupTranslation(Vector3& translation);
 
-	/*
+	/**
 	Transforms the given Vector3 with this Matrix4 returning the Vector3 result.
 	NOTE:this converts the given Vector3 to a Vector4 with the w parameter set to one to
 	do the matrix math and then returns a Vector3 with the calculated x,y,z values.
 	*/
 	JMATH_API Vector3 Transform(const Vector3& point);
 
-	/*this static function returns a Vector3 representing the given index (zero based) row or column of the given matrix parameter depending
+	/**this static function returns a Vector3 representing the given index (zero based) row or column of the given matrix parameter depending
 	on the given MATRIX_MAJOR enum type.
 	(e.g.
 	Matrix4 MyVector(
@@ -618,7 +686,7 @@ public:
 	*/
 	static JMATH_API Vector4 GetVector4(MATRIX_MAJOR type, int index, const Matrix4& matrix);
 
-	/*
+	/**
 	transposes this matrix
 	returns reference to this object to allow for operation chaining
 	*/
@@ -627,7 +695,7 @@ public:
 	//returns a Matrix4 the transpose of this. This matrix does not change
 	JMATH_API Matrix4 GetTranspose();
 
-	/*
+	/**
 	Converts this data structure to structure useable by OpenGL
 	*/
 	JMATH_API void Get(float* a_matrix);

@@ -1,27 +1,45 @@
 #include "TheMath.h"
 
+///(constructor)
+/**
+Construct Vector2.
+*/
 Vector2::Vector2()
 {
 	x = 0;
 	y = 0;
 }
 
+///(constructor)
+/**
+Construct Vector2 with x and y set to given parameters.
+*/
 Vector2::Vector2(float a_x, float a_y)
 {
 	x = a_x;
 	y = a_y;
 }
 
+///(constructor)
+/*
+Construct Vector2 that is a copy of given parameter.
+*/
 Vector2::Vector2(const Vector2& other)
 {
 	x = other.x;
 	y = other.y;
 }
 
+///(destructor)
 Vector2::~Vector2()
 {
 }
 
+/**
+********************************************************
+Operator overloads
+**********************************************************
+*/
 Vector2& Vector2::operator=(const Vector2& rhs)
 {
 	//check for self assignment
