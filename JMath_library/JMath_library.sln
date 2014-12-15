@@ -1,13 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JMath_static", "JMath_static\JMath_static.vcxproj", "{10D2C4AF-0EBF-44F8-A8B1-279C1D4300AB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JMath_dynamic", "JMath_dynamic\JMath_dynamic.vcxproj", "{501B86EC-F53E-48EB-A6E5-392BB3AD4BC8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unit_test_JMath", "Unit_test_JMath\Unit_test_JMath.vcxproj", "{0E0B3C60-18EA-45CD-BC90-655416D26533}"
+	ProjectSection(ProjectDependencies) = postProject
+		{10D2C4AF-0EBF-44F8-A8B1-279C1D4300AB} = {10D2C4AF-0EBF-44F8-A8B1-279C1D4300AB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unit_test_JMath_DLL", "Unit_test_JMath_DLL\Unit_test_JMath_DLL.vcxproj", "{AB8BF319-2C37-4274-89BD-3656D840A32E}"
 EndProject
